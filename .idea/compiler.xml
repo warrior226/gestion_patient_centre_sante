@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile default="true" name="Default" enabled="true" />
+      <profile name="Gradle Imported" enabled="true">
+        <outputRelativeToContentRoot value="true" />
+        <processorPath useClasspath="false">
+          <entry name="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.projectlombok/lombok/1.18.38/57f8f5e02e92a30fd21b80cbd426a4172b5f8e29/lombok-1.18.38.jar" />
+        </processorPath>
+        <module name="disponibilite-service.main" />
+      </profile>
+      <profile name="Annotation profile for examen-service" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <processorPath useClasspath="false">
+          <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.38/lombok-1.18.38.jar" />
+          <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.38/lombok-1.18.38.jar" />
+        </processorPath>
+        <module name="disponibilite-service" />
+        <module name="examen-service" />
+        <module name="prescription-service" />
+        <module name="medecin-service" />
+        <module name="rdv-service" />
+        <module name="consultation-service" />
+        <module name="patient-service" />
+        <module name="patient_medecin-service" />
+      </profile>
+      <profile name="Annotation profile for resultat-service" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <processorPath useClasspath="false">
+          <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.38/lombok-1.18.38.jar" />
+        </processorPath>
+        <module name="resultat-service" />
+      </profile>
+    </annotationProcessing>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="consultation-service" options="-parameters" />
+      <module name="disponibilite-service" options="-parameters" />
+      <module name="disponibilite-service.main" options="-parameters" />
+      <module name="disponibilite-service.test" options="-parameters" />
+      <module name="examen-service" options="-parameters" />
+      <module name="medecin-service" options="-parameters" />
+      <module name="patient-service" options="-parameters" />
+      <module name="patient_medecin-service" options="-parameters" />
+      <module name="prescription-service" options="-parameters" />
+      <module name="rdv-service" options="-parameters" />
+      <module name="resultat-service" options="-parameters" />
+    </option>
+  </component>
+</project>
