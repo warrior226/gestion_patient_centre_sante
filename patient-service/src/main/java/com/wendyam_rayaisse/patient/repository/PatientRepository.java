@@ -11,7 +11,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Repository
-public interface PatientRepository extends JpaRepository<Patient, UUID> {
+public interface PatientRepository extends JpaRepository<Patient, Long> {
 
     Optional<Patient> findPatientByPatientId(int patientId);
 
@@ -19,5 +19,9 @@ public interface PatientRepository extends JpaRepository<Patient, UUID> {
 
     @Transactional
     @Modifying
-    void deletePatientByPatientId(UUID patientId);
+    void deletePatientByPatientId(int patientId);
+
+    @Transactional
+    @Modifying
+    void deletePatientByMatricule(String matricule);
 }

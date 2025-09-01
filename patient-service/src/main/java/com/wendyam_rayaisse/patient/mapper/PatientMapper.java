@@ -28,6 +28,7 @@ public class PatientMapper {
         patient.setDateNaissance(patientDto.getDateNaissance());
         patient.setGenre(patientDto.getGenre());
         patient.setProfession(patientDto.getProfession());
+        patient.setPassword(patientDto.getPassword());
         return patient;
     }
 }

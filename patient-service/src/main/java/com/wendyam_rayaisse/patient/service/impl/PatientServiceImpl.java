@@ -1,17 +1,14 @@
 package com.wendyam_rayaisse.patient.service.impl;
 
 
-import com.wendyam_rayaisse.patient.constants.PatientConstants;
 import com.wendyam_rayaisse.patient.dto.PatientDto;
 import com.wendyam_rayaisse.patient.entity.Patient;
+import com.wendyam_rayaisse.patient.exception.ResourceNotFoundException;
 import com.wendyam_rayaisse.patient.mapper.PatientMapper;
 import com.wendyam_rayaisse.patient.repository.PatientRepository;
 import com.wendyam_rayaisse.patient.service.IPatientService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
-
-import java.util.Optional;
-import java.util.UUID;
 
 @Service
 @AllArgsConstructor
@@ -22,30 +19,49 @@ public class PatientServiceImpl implements IPatientService {
     @Override
     public void createPatient(PatientDto patientDto) {
         Patient patient = PatientMapper.mapPatientDtoToPatientEntity(patientDto,new Patient());
-        //generateMatricule
-        var matricule=PatientConstants.generateMatricule(patientDto.getNom(),patientDto.getPrenom());
-        patient.setMatricule(matricule);
         System.out.println("Patient: "+patient);
-        //Optional<Patient> patientOptional = patientRepository.findPatientByMatricule(patient.getMatricule());
+        patientRepository.save(patient);
     }
 
     @Override
-    public PatientDto getPatientByPatientId(UUID patientId) {
+    public PatientDto getPatientByPatientId(int patientId) {
         return null;
     }
 
     @Override
     public PatientDto getPatientByMatricule(String matricule) {
-        return null;
+        Patient patient=patientRepository.findPatientByMatricule(matricule).orElseThrow(
+                ()->new ResourceNotFoundException("Ce matricule n'existe pas dans notre base de donnee")
+        );
+
+        return PatientMapper.mapPatientEntityToPatientDto(patient,new PatientDto());
     }
 
     @Override
-    public void updatePatient(PatientDto patientDto) {
+    public boolean updatePatient(PatientDto patientDto) {
+        Patient patient=patientRepository.findPatientByMatricule(patientDto.getMatricule()).orElseThrow(
+                ()->new ResourceNotFoundException("Ce matricule n'existe pas dans notre base de donnee")
+        );
 
+        patient.setNom(patientDto.getNom());
+        patient.setPrenom(patientDto.getPrenom());
+        patient.setEmail(patientDto.getEmail());
+        patient.setAdresse(patientDto.getAdresse());
+        patient.setContact(patientDto.getContact());
+        patient.setDateNaissance(patientDto.getDateNaissance());
+        patient.setGenre(patientDto.getGenre());
+        patient.setProfession(patientDto.getProfession());
+        System.out.println("Patient Update: "+patient);
+        patientRepository.save(patient);
+        return true;
     }
 
     @Override
-    public boolean deletePatientByPatientId(UUID patientId) {
-        return false;
+    public boolean deletePatientByMatricule(String matricule) {
+        Patient patient=patientRepository.findPatientByMatricule(matricule).orElseThrow(
+                ()->new ResourceNotFoundException("Ce matricule n'existe pas dans notre base de donnee")
+        );
+        patientRepository.deletePatientByMatricule(patient.getMatricule());
+        return true;
     }
 }

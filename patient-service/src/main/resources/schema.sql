@@ -1,26 +1,26 @@
 -- Patients
 CREATE TABLE IF NOT EXISTS patient (
-    patient_id  int AUTO_INCREMENT PRIMARY KEY ,
-    matricule VARCHAR(25) NOT NULL, --JJ-MM-AA-MinMin-SecSec-MillisecMillisec
+    patient_id int AUTO_INCREMENT PRIMARY KEY,
+    matricule VARCHAR(25) NOT NULL UNIQUE, -- JJ-MM-AA-MinMin-SecSec-MillisecMillisec
     nom VARCHAR(255) NOT NULL,
     prenom VARCHAR(255) NOT NULL,
-    email VARCHAR(255) UNIQUE DEFAULT NULL,
+    email VARCHAR(255) DEFAULT NULL UNIQUE,
     adresse VARCHAR(255) DEFAULT NULL,
-    contact VARCHAR(255) DEFAULT NULL,
+    contact VARCHAR(255) DEFAULT NULL UNIQUE,
     date_naissance DATE DEFAULT NULL,
     genre VARCHAR(6) DEFAULT NULL CHECK (genre IN ('M', 'F', 'Autre')),
     profession VARCHAR(255) DEFAULT NULL,
     password TEXT NOT NULL,
     created_at DATE NOT NULL,
     updated_at DATE DEFAULT NULL
-    );
+);
 
 -- Medecins
 CREATE TABLE IF NOT EXISTS medecin (
-    medecin_id UUID PRIMARY KEY,
+    medecin_id int AUTO_INCREMENT PRIMARY KEY,
     nom VARCHAR(255) NOT NULL,
     prenom VARCHAR(255) NOT NULL,
-    email VARCHAR(255) UNIQUE DEFAULT NULL,
+    email VARCHAR(255)  DEFAULT NULL UNIQUE,
     adresse VARCHAR(255) DEFAULT NULL,
     contact VARCHAR(255) DEFAULT NULL,
     date_naissance DATE DEFAULT NULL,
@@ -31,18 +31,18 @@ CREATE TABLE IF NOT EXISTS medecin (
     );
 
 -- Relation Patient ↔ Médecin
-CREATE TABLE IF NOT EXISTS user (
-    user_id UUID PRIMARY KEY,
-    patient_id UUID NOT NULL,
-    medecin_id UUID NOT NULL,
+CREATE TABLE IF NOT EXISTS users (
+    user_id int AUTO_INCREMENT PRIMARY KEY,
+    patient_id int NOT NULL,
+    medecin_id int NOT NULL,
     FOREIGN KEY (patient_id) REFERENCES patient(patient_id) ON DELETE CASCADE,
     FOREIGN KEY (medecin_id) REFERENCES medecin(medecin_id) ON DELETE CASCADE
     );
 
 -- Disponibilités des médecins
 CREATE TABLE IF NOT EXISTS disponibilite (
-    disponibilite_id UUID PRIMARY KEY,
-    medecin_id UUID NOT NULL,
+    disponibilite_id int AUTO_INCREMENT PRIMARY KEY,
+    medecin_id int NOT NULL,
     date_disponibilite DATE NOT NULL,
     heure_debut TIME NOT NULL,
     heure_descente TIME DEFAULT NULL,
@@ -53,21 +53,21 @@ CREATE TABLE IF NOT EXISTS disponibilite (
 
 -- Rendez-vous
 CREATE TABLE IF NOT EXISTS rdv(
-    rdv_id UUID PRIMARY KEY,
-    user_id UUID NOT NULL,
+    rdv_id int AUTO_INCREMENT PRIMARY KEY,
+    user_id int NOT NULL,
     date_rdv DATE NOT NULL,
     heure_rdv TIME NOT NULL,
     motif_consultation VARCHAR(255) DEFAULT NULL,
     status VARCHAR(10) DEFAULT NULL CHECK (status IN ('planifie', 'confirme', 'annule', 'termine')),
     created_at DATE NOT NULL,
     updated_at DATE DEFAULT NULL,
-    FOREIGN KEY (user_id) REFERENCES user(user_id) ON DELETE CASCADE
+    FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE
     );
 
 -- Consultations
 CREATE TABLE IF NOT EXISTS consultation (
-    consultation_id UUID PRIMARY KEY,
-    user_id UUID NOT NULL,
+    consultation_id int AUTO_INCREMENT PRIMARY KEY,
+    user_id int NOT NULL,
     date_consultation DATE NOT NULL,
     heure_consultation TIME NOT NULL,
     motif_consultation TEXT DEFAULT NULL,
@@ -81,13 +81,13 @@ CREATE TABLE IF NOT EXISTS consultation (
     date_prochaine_visite DATE DEFAULT NULL,
     created_at DATE NOT NULL,
     updated_at DATE DEFAULT NULL,
-    FOREIGN KEY (user_id) REFERENCES user(user_id) ON DELETE CASCADE
+    FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE
     );
 
 -- Prescriptions
 CREATE TABLE IF NOT EXISTS prescription (
-    prescription_id UUID PRIMARY KEY,
-    consultation_id UUID NOT NULL,
+    prescription_id int AUTO_INCREMENT PRIMARY KEY,
+    consultation_id int NOT NULL,
     medicament TEXT DEFAULT NULL,
     posologie TEXT DEFAULT NULL,
     created_at DATE NOT NULL,
@@ -97,8 +97,8 @@ CREATE TABLE IF NOT EXISTS prescription (
 
 -- Examens
 CREATE TABLE IF NOT EXISTS examen (
-    examen_id UUID PRIMARY KEY,
-    consultation_id UUID NOT NULL,
+    examen_id int AUTO_INCREMENT PRIMARY KEY,
+    consultation_id int NOT NULL,
     nom_examen TEXT DEFAULT NULL,
     type_examen TEXT DEFAULT NULL,
     created_at DATE NOT NULL,
@@ -108,8 +108,8 @@ CREATE TABLE IF NOT EXISTS examen (
 
 -- Resultats
     CREATE TABLE IF NOT EXISTS resultat (
-        resultat_id UUID PRIMARY KEY,
-        examen_id UUID NOT NULL,
+        resultat_id int AUTO_INCREMENT PRIMARY KEY,
+        examen_id int NOT NULL,
         resultats TEXT DEFAULT NULL,
         interpretation TEXT DEFAULT NULL,
         resultat_file TEXT DEFAULT NULL,
@@ -117,12 +117,12 @@ CREATE TABLE IF NOT EXISTS examen (
         updated_at DATE DEFAULT NULL,
         FOREIGN KEY (examen_id) REFERENCES examen(examen_id) ON DELETE CASCADE
 
-    )
+    );
 
 -- Constantes médicales
 CREATE TABLE IF NOT EXISTS constantes (
-    constantes_id UUID PRIMARY KEY,
-    patient_id UUID NOT NULL,
+    constantes_id int AUTO_INCREMENT PRIMARY KEY,
+    patient_id int NOT NULL,
     poids VARCHAR(6) DEFAULT NULL,
     taille VARCHAR(5) DEFAULT NULL,
     temperature VARCHAR(50) DEFAULT NULL,

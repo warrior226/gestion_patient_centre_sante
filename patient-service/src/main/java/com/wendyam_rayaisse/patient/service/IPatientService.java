@@ -18,7 +18,7 @@ public interface IPatientService {
      * @param patientId
      * @return
      */
-    PatientDto getPatientByPatientId(UUID patientId);
+    PatientDto getPatientByPatientId(int patientId);
 
     /**
      *
@@ -32,14 +32,14 @@ public interface IPatientService {
      *
      * @param patientDto
      */
-    void updatePatient(PatientDto patientDto);
+    boolean updatePatient(PatientDto patientDto);
 
     /**
      *
-     * @param patientId
+     * @param matricule
      * @return
      */
-    boolean deletePatientByPatientId(UUID patientId);
+    boolean deletePatientByMatricule(String matricule);
 
 
 }
