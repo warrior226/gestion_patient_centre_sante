@@ -20,11 +20,11 @@ import java.util.UUID;
 public class Consultation extends BaseEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private UUID consultationId;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int consultationId;
 
     @NotNull
-    private UUID userId;
+    private int userId;
 
     @NotNull
     private LocalDate dateConsultation;

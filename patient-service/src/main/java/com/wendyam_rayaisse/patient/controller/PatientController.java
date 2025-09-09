@@ -98,7 +98,7 @@ public class PatientController {
 
 
     @Operation(
-            summary = "Api pour la suppression des informations d'un patient",
+            summary = "Api pour la suppression des informations d'un patient en renseignant son matricule",
             description="Api permettant de supprimer le compte d'un patient"
     )
     @ApiResponses({
@@ -125,15 +125,15 @@ public class PatientController {
         }else{
             return ResponseEntity
                     .status(HttpStatus.EXPECTATION_FAILED)
-                    .body(new ResponseDto(PatientConstants.STATUS_417,PatientConstants.MESSAGE_417_UPDATE));
+                    .body(new ResponseDto(PatientConstants.STATUS_417,PatientConstants.MESSAGE_417_DELETE));
 
         }
     }
 
 
     @Operation(
-            summary = "Api pour rechercher les informations d'un patient",
-            description="Api permettant de rechercher les informations d'un patient"
+            summary = "Api pour rechercher les informations d'un patient en renseignant son matricule",
+            description="Api permettant de rechercher les informations d'un patient en renseignant son matricule"
     )
     @ApiResponses({
             @ApiResponse(

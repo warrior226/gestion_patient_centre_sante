@@ -9,13 +9,7 @@ import lombok.Data;
 @Schema(name = "Patient", description = "Schema to hold patient information")
 @Data
 public class PatientAuthInfoDto {
-
-    @NotEmpty(message="Vueillez renseigner le nom du patient")
-    private String nom;
-
-    @NotEmpty(message="Vueillez renseigner le prenom du patient")
-    private String prenom;
-
+    private String matricule;
     @NotEmpty(message="Vueillez renseigner le mot de passe")
     @Size(min = 8, message="Le mot de passe doit avoir au moins 8 caracteres")
     private String password;

@@ -19,7 +19,10 @@ import java.util.UUID;
 public class Examen extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private UUID examenId;
+    private int examenId;
+
+    @NotNull
+    private int consultationId;
 
     @NotNull
     private String nomExamen;

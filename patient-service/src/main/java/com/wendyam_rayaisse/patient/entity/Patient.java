@@ -42,6 +42,7 @@ public class Patient extends BaseEntity {
 
     private String profession;
 
+    @NotNull
     private String password;
 
 }

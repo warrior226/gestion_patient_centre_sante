@@ -13,15 +13,15 @@ import java.util.UUID;
 @Repository
 public interface PatientRepository extends JpaRepository<Patient, Long> {
 
-    Optional<Patient> findPatientByPatientId(int patientId);
+    Optional<Patient> findByPatientId(int patientId);
 
-    Optional<Patient> findPatientByMatricule(String matricule);
-
-    @Transactional
-    @Modifying
-    void deletePatientByPatientId(int patientId);
+    Optional<Patient> findByMatricule(String matricule);
 
     @Transactional
     @Modifying
-    void deletePatientByMatricule(String matricule);
+    void deleteByPatientId(int patientId);
+
+    @Transactional
+    @Modifying
+    void deleteByMatricule(String matricule);
 }

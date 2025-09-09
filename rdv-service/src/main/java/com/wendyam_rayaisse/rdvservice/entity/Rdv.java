@@ -12,17 +12,16 @@ import java.time.LocalTime;
 import java.util.UUID;
 
 @Entity
-@MappedSuperclass
 @Getter
 @Setter
 @ToString
 public class Rdv extends BaseEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private UUID rdvId;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int rdvId;
 
     @NotNull
-    private UUID userId;
+    private int userId;
 
     @NotNull
     private LocalDate dateRdv;

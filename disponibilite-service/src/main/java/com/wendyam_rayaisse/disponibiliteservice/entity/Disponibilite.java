@@ -9,21 +9,19 @@ import lombok.ToString;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.UUID;
 
 @Entity
-@MappedSuperclass
 @Getter
 @Setter
 @ToString
 public class Disponibilite extends BaseEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private UUID disponibiliteId;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int disponibiliteId;
 
     @NotNull
-    private UUID medecinId;
+    private int medecinId;
 
     @NotNull
     private LocalDate dateDisponibilite;

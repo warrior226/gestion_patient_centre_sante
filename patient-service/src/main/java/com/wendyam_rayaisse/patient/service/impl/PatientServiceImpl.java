@@ -30,7 +30,7 @@ public class PatientServiceImpl implements IPatientService {
 
     @Override
     public PatientDto getPatientByMatricule(String matricule) {
-        Patient patient=patientRepository.findPatientByMatricule(matricule).orElseThrow(
+        Patient patient=patientRepository.findByMatricule(matricule).orElseThrow(
                 ()->new ResourceNotFoundException("Ce matricule n'existe pas dans notre base de donnee")
         );
 
@@ -39,7 +39,7 @@ public class PatientServiceImpl implements IPatientService {
 
     @Override
     public boolean updatePatient(PatientDto patientDto) {
-        Patient patient=patientRepository.findPatientByMatricule(patientDto.getMatricule()).orElseThrow(
+        Patient patient=patientRepository.findByMatricule(patientDto.getMatricule()).orElseThrow(
                 ()->new ResourceNotFoundException("Ce matricule n'existe pas dans notre base de donnee")
         );
 
@@ -58,10 +58,10 @@ public class PatientServiceImpl implements IPatientService {
 
     @Override
     public boolean deletePatientByMatricule(String matricule) {
-        Patient patient=patientRepository.findPatientByMatricule(matricule).orElseThrow(
+        Patient patient=patientRepository.findByMatricule(matricule).orElseThrow(
                 ()->new ResourceNotFoundException("Ce matricule n'existe pas dans notre base de donnee")
         );
-        patientRepository.deletePatientByMatricule(patient.getMatricule());
+        patientRepository.deleteByMatricule(patient.getMatricule());
         return true;
     }
 }

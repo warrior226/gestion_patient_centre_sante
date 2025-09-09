@@ -18,13 +18,13 @@ import java.util.UUID;
 @NoArgsConstructor
 public class User {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private UUID id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
 
     @NotNull
-    private UUID patientId;
+    private int patientId;
 
     @NotNull
-    private UUID medecinId;
+    private int medecinId;
 
 }

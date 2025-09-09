@@ -20,8 +20,8 @@
         <module name="disponibilite-service" />
         <module name="resultat-service" />
         <module name="prescription-service" />
-        <module name="medecin-service" />
         <module name="examen-service" />
+        <module name="medecin-service" />
         <module name="rdv-service" />
         <module name="consultation-service" />
         <module name="patient-service" />

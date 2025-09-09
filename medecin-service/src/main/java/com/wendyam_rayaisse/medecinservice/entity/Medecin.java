@@ -16,8 +16,11 @@ import java.util.UUID;
 @NoArgsConstructor
 public class Medecin extends BaseEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private UUID medecinId;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long medecinId;
+
+    @NotNull
+    private String matricule;
 
     @NotNull
     private String nom;
@@ -33,11 +36,16 @@ public class Medecin extends BaseEntity {
 
     private String contact;
 
-    private String date_naissance;
+    private String dateNaissance;
 
     @NotNull
     private String genre;
 
     @NotNull
     private String specialite;
+
+    @NotNull
+    private String password;
+
+    private boolean status=false;
 }
