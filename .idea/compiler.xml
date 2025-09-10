@@ -10,7 +10,7 @@
         </processorPath>
         <module name="disponibilite-service.main" />
       </profile>
-      <profile name="Annotation profile for resultat-service" enabled="true">
+      <profile name="Annotation profile for constante-service" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
@@ -19,6 +19,7 @@
         </processorPath>
         <module name="disponibilite-service" />
         <module name="resultat-service" />
+        <module name="constante-service" />
         <module name="prescription-service" />
         <module name="examen-service" />
         <module name="medecin-service" />
@@ -27,10 +28,18 @@
         <module name="patient-service" />
         <module name="patient_medecin-service" />
       </profile>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="configserver" />
+      </profile>
     </annotationProcessing>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="configserver" options="-parameters" />
+      <module name="constante-service" options="-parameters" />
       <module name="consultation-service" options="-parameters" />
       <module name="disponibilite-service" options="-parameters" />
       <module name="disponibilite-service.main" options="-parameters" />
