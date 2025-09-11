@@ -1,0 +1,9 @@
+build:
+  version: "1.0.0"
+
+patient-service:
+  message: "Fichier de configuration du service patient-service par défaut"
+  contactDetails:
+    name: "RAYAISSE Patrick Renaud Wendyam"
+    email: "wendyam.rayaisse@gmail.com"
+  onCallSupport: "+226 65 27 21 74"

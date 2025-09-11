@@ -1,8 +1,8 @@
 package com.wendyam_rayaisse.examenservice.exception;
 
 
-import com.wendyam_rayaisse.disponibiliteservice.dto.ErrorResponseDto;
-import com.wendyam_rayaisse.disponibiliteservice.exception.ResourceNotFoundException;
+
+import com.wendyam_rayaisse.examenservice.dto.ErrorResponseDto;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;

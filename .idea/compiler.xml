@@ -10,7 +10,13 @@
         </processorPath>
         <module name="disponibilite-service.main" />
       </profile>
-      <profile name="Annotation profile for constante-service" enabled="true">
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="configserver" />
+      </profile>
+      <profile name="Annotation profile for disponibilite-service" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
@@ -19,20 +25,14 @@
         </processorPath>
         <module name="disponibilite-service" />
         <module name="resultat-service" />
-        <module name="constante-service" />
         <module name="prescription-service" />
-        <module name="examen-service" />
         <module name="medecin-service" />
+        <module name="examen-service" />
+        <module name="constante-service" />
         <module name="rdv-service" />
         <module name="consultation-service" />
         <module name="patient-service" />
         <module name="patient_medecin-service" />
-      </profile>
-      <profile name="Maven default annotation processors profile" enabled="true">
-        <sourceOutputDir name="target/generated-sources/annotations" />
-        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
-        <outputRelativeToContentRoot value="true" />
-        <module name="configserver" />
       </profile>
     </annotationProcessing>
   </component>

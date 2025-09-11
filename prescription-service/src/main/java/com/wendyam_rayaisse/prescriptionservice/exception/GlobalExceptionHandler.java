@@ -2,7 +2,7 @@ package com.wendyam_rayaisse.prescriptionservice.exception;
 
 
 
-import com.wendyam_rayaisse.rdvservice.dto.ErrorResponseDto;
+import com.wendyam_rayaisse.prescriptionservice.dto.ErrorResponseDto;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;

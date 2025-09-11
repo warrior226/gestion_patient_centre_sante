@@ -1,0 +1,10 @@
+build:
+  version: "1.0.0"
+
+
+rdv-service:
+  message: "Fichier de configuration du service rdv-service en production"
+  contactDetails:
+    name: "RAYAISSE Patrick Renaud Wendyam"
+    email: "wendyam.rayaisse@gmail.com"
+  onCallSupport: "+226 65 27 21 74"

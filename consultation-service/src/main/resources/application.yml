@@ -1,7 +1,11 @@
+server:
+  port: 4009
+
 spring:
   application:
     name: "consultation-service"
-
+  profiles:
+    active: "prod"
   datasource:
     url: jdbc:h2:mem:testdb
     driverClassName: org.h2.Driver
@@ -15,6 +19,12 @@ spring:
     hibernate:
       ddl-auto: update
     show-sql: true
+  config:
+    import: "optional:configserver:http://localhost:8071/"
 
-server:
-  port: 4005
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+

@@ -1,7 +1,12 @@
+server:
+  port: 4001
+
+
 spring:
   application:
     name: "medecin-service"
-
+  profiles:
+    active: "prod"
   datasource:
     url: jdbc:h2:mem:testdb
     driverClassName: org.h2.Driver
@@ -15,6 +20,12 @@ spring:
     hibernate:
       ddl-auto: update
     show-sql: true
+  config:
+    import: "optional:configserver:http://localhost:8071/"
 
-server:
-  port: 4001
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+

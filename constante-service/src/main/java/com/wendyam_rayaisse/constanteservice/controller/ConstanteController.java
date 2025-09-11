@@ -2,6 +2,7 @@ package com.wendyam_rayaisse.constanteservice.controller;
 
 
 import com.wendyam_rayaisse.constanteservice.constants.ConstantesConstants;
+import com.wendyam_rayaisse.constanteservice.dto.ConstanteContactInfoDto;
 import com.wendyam_rayaisse.constanteservice.dto.ConstanteDto;
 import com.wendyam_rayaisse.constanteservice.dto.ErrorResponseDto;
 import com.wendyam_rayaisse.constanteservice.dto.ResponseDto;
@@ -30,6 +31,8 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping(path ="/api",produces ={MediaType.APPLICATION_JSON_VALUE} )
 public class ConstanteController {
     private  IConstanteService constanteService;
+
+    private ConstanteContactInfoDto constanteContactInfoDto;
 
     @Operation(
             summary = "Creation de constantes",
@@ -117,7 +120,30 @@ public class ConstanteController {
         }
     }
 
-
+    @Operation(
+            summary = "Get Contact Info",
+            description = "Contact Info details that can be reached out in case of any issues"
+    )
+    @ApiResponses({
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "HTTP Status OK"
+            ),
+            @ApiResponse(
+                    responseCode = "500",
+                    description = "HTTP Status Internal Server Error",
+                    content = @Content(
+                            schema = @Schema(implementation = ErrorResponseDto.class)
+                    )
+            )
+    }
+    )
+    @GetMapping("/contact-info")
+    public ResponseEntity<ConstanteContactInfoDto> getContactInfo() {
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(constanteContactInfoDto);
+    }
 
 
 
