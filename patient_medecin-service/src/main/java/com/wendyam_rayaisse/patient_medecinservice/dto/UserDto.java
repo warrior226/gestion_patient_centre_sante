@@ -13,6 +13,9 @@ import lombok.Data;
 public class UserDto {
 
     @NotNull
+    private int userId;
+
+    @NotNull
     private int patientId;
 
     @NotNull

@@ -82,7 +82,7 @@ public class ConsultationController {
     )
     @GetMapping("/fetch")
     public ResponseEntity<List<ConsultationDto>> fetchConsultationfoDetails(@RequestParam int userId){
-        List<ConsultationDto> listconsultationDto =iConsultationService.getConsultationById(userId);
+        List<ConsultationDto> listconsultationDto =iConsultationService.getUserById(userId);
         return ResponseEntity.status(HttpStatus.OK).body(listconsultationDto);
     }
 

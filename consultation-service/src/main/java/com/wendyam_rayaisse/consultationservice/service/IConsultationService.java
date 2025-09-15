@@ -16,7 +16,7 @@ public interface IConsultationService {
      * @param userId
      * @return
      */
-    List<ConsultationDto> getConsultationById(int userId);
+    List<ConsultationDto> getUserById(int userId);
 
     /**
      *

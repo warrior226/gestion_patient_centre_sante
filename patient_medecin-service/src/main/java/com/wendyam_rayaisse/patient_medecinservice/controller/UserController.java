@@ -57,7 +57,7 @@ public class UserController {
         iUserService.createUser(userDto);
         return ResponseEntity
                 .status(HttpStatus.CREATED)
-                .body(new ResponseDto(UserConstants.STATUS_201,UserConstants.STATUS_201));
+                .body(new ResponseDto(UserConstants.STATUS_201,UserConstants.MESSAGE_201));
     }
 
     @Operation(

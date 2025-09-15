@@ -5,6 +5,7 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
+import java.time.LocalDate;
 import java.util.UUID;
 
 
@@ -36,7 +37,7 @@ public class Medecin extends BaseEntity {
 
     private String contact;
 
-    private String dateNaissance;
+    private LocalDate dateNaissance;
 
     @NotNull
     private String genre;

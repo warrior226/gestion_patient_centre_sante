@@ -19,6 +19,8 @@ public class UserServiceImpl implements IUserService {
         if(!exist){
            User user=UserMapper.mapToUser(new User(),userDto);
             userRepository.save(user);
+        }else{
+            throw new RuntimeException("User already exists");
         }
 
     }

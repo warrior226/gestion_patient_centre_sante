@@ -23,7 +23,7 @@ public class ConsultationServiceImpl implements IConsultationService {
     }
 
     @Override
-    public List<ConsultationDto> getConsultationById(int userId) {
+    public List<ConsultationDto> getUserById(int userId) {
         List<Consultation> listconsultation =  consultationRepository.findByUserId(userId).orElseThrow(
                 ()->new ResourceNotFoundException("Aucune information disponible")
         );
@@ -39,18 +39,8 @@ public class ConsultationServiceImpl implements IConsultationService {
         Consultation consultation = consultationRepository.findByConsultationId(consultationDto.getConsultationId()).orElseThrow(
                 ()-> new ResourceNotFoundException("Aucune information disponible")
         );
-        consultation.setDateConsultation(consultationDto.getDateConsultation());
-        consultation.setHeureConsultation(consultationDto.getHeureConsultation());
-        consultation.setMotifConsultation(consultationDto.getMotifConsultation());
-        consultation.setAllergies(consultationDto.getAllergies());
-        consultation.setAntecedentsFamiliaux(consultationDto.getAntecedentsFamiliaux());
-        consultation.setObservation(consultationDto.getObservation());
-        consultation.setAntecedentsMedicaux(consultationDto.getAntecedentsFamiliaux());
-        consultation.setSymptomes(consultationDto.getSymptomes());
-        consultation.setRecommandation(consultationDto.getRecommandation());
-        consultation.setTraitementEnCours(consultationDto.getTraitementEnCours());
-        consultation.setDateProchaineVisite(consultationDto.getDateProchaineVisite());
-        consultationRepository.save(consultation);
+
+        consultationRepository.save(ConsultationMapper.mapToConsultation(consultationDto,consultation));
         return true;
     }
 

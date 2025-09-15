@@ -25,4 +25,11 @@ public interface IRdvService {
      * @return
      */
     List<RdvDto> findByUserId(int userId);
+
+    /**
+     *
+     * @param rdvDto
+     * @return
+     */
+    boolean updateRdv(RdvDto rdvDto);
 }

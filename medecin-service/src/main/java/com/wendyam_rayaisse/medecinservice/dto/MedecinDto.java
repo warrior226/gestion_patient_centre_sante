@@ -4,6 +4,8 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.*;
 import lombok.Data;
 
+import java.time.LocalDate;
+
 @Schema(name = "medecin", description = "Schema to hold medecin information")
 @Data
 public class MedecinDto {
@@ -22,7 +24,7 @@ public class MedecinDto {
     @Pattern(regexp="(^$|[0-9]{8,})",message="Le contact doit avoir au moins 8 chiffres")
     private String contact;
 
-    private String dateNaissance;
+    private LocalDate dateNaissance;
 
     @NotEmpty(message="Vueillez renseigner le genre du patient")
     private  String genre;

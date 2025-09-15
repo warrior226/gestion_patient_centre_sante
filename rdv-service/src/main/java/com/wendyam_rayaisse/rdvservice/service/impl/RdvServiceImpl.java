@@ -43,4 +43,13 @@ public class RdvServiceImpl implements IRdvService {
         }
         return rdvDtoList;
     }
+
+    @Override
+    public boolean updateRdv(RdvDto rdvDto) {
+        Rdv rdv =rdvRepository.findByRdvId(rdvDto.getRdvId()).orElseThrow(
+                ()-> new ResourceNotFoundException("Aucune information disponible")
+        );
+        rdvRepository.save(RdvMapper.mapToRdv(rdvDto,rdv));
+        return true;
+    }
 }

@@ -92,7 +92,7 @@ public class ConstanteController {
 
 
     @Operation(
-            summary = "delet constante",
+            summary = "delete constante",
             description = "REST API to delete constante"
     )
     @ApiResponses({
@@ -146,5 +146,29 @@ public class ConstanteController {
     }
 
 
+
+    @Operation(
+            summary = "Api pour rechercher les informations d'une consultation  à travers le patientId ",
+            description="AApi pour rechercher les informations d'une consultation  à travers le patientId"
+    )
+    @ApiResponses({
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "HTTP Status OK"
+            ),
+            @ApiResponse(
+                    responseCode = "417",
+                    description = "HTTP Status Internal Server Error",
+                    content = @Content(
+                            schema = @Schema(implementation = ErrorResponseDto.class)
+                    )
+            )
+    }
+    )
+    @GetMapping("/fetchByPatientId")
+    public ResponseEntity<ConstanteDto> fetchMedecinInfoDetailsByMatricule(@RequestParam  int patientId){
+        ConstanteDto constanteDto=constanteService.getConstanteByPatientId(patientId);
+        return ResponseEntity.status(HttpStatus.OK).body(constanteDto);
+    }
 
 }

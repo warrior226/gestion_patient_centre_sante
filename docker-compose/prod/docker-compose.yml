@@ -1,0 +1,250 @@
+services:
+  patientdb:
+    image: mysql
+    container_name: patientdb
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_DATABASE: patientdb
+    extends:
+      file: common-config.yml
+      service: microservice-db-config
+
+  medecindb:
+    image: mysql
+    container_name: medecindb
+    ports:
+      - "3307:3306"
+    environment:
+      MYSQL_DATABASE: medecindb
+    extends:
+      file: common-config.yml
+      service: microservice-db-config
+
+  consultationdb:
+    image: mysql
+    container_name: consultationdb
+    ports:
+      - "3308:3306"
+    environment:
+      MYSQL_DATABASE: consultationdb
+    extends:
+      file: common-config.yml
+      service: microservice-db-config
+
+  disponibilitedb:
+    image: mysql
+    container_name: disponibilitedb
+    ports:
+      - "3309:3306"
+    environment:
+      MYSQL_DATABASE: disponibilitedb
+    extends:
+      file: common-config.yml
+      service: microservice-db-config
+
+  constantedb:
+    image: mysql
+    container_name: constantedb
+    ports:
+      - "3310:3306"
+    environment:
+      MYSQL_DATABASE: constantedb
+    extends:
+      file: common-config.yml
+      service: microservice-db-config
+
+  rdvdb:
+    image: mysql
+    container_name: rdvdb
+    ports:
+      - "3311:3306"
+    environment:
+      MYSQL_DATABASE: rdvdb
+    extends:
+      file: common-config.yml
+      service: microservice-db-config
+
+  userdb:
+    image: mysql
+    container_name: userdb
+    ports:
+      - "3312:3306"
+    environment:
+      MYSQL_DATABASE: userdb
+    extends:
+      file: common-config.yml
+      service: microservice-db-config
+
+  examendb:
+    image: mysql
+    container_name: examendb
+    ports:
+      - "3313:3306"
+    environment:
+      MYSQL_DATABASE: examendb
+    extends:
+      file: common-config.yml
+      service: microservice-db-config
+
+  prescriptiondb:
+    image: mysql
+    container_name: prescriptiondb
+    ports:
+      - "3314:3306"
+    environment:
+      MYSQL_DATABASE: prescriptiondb
+    extends:
+      file: common-config.yml
+      service: microservice-db-config
+
+
+  resultatdb:
+    image: mysql
+    container_name: resultatdb
+    ports:
+      - "3315:3306"
+    environment:
+      MYSQL_DATABASE: resultatdb
+    extends:
+      file: common-config.yml
+      service: microservice-db-config
+
+
+  configserver:
+    image: "rayaisse/configserver:v1"
+    container_name: configserver-ms
+    ports:
+      - "8071:8071"
+    healthcheck:
+      test: "curl --fail --silent localhost:8071/actuator/health/readiness | grep UP || exit 1"
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 10s
+    extends:
+      file: common-config.yml
+      service: microservice-base-config
+
+  patient-service:
+    image: "rayaisse/patient-service:v1"
+    container_name: patient-ms
+    ports:
+      - "4000:4000"
+    environment:
+      SPRING_APPLICATION_NAME: "patient-service"
+      SPRING_DATASOURCE_URL: "jdbc:mysql://patientdb:3306/patientdb"
+    depends_on:
+      patientdb:
+        condition: service_healthy
+      configserver:
+        condition: service_healthy
+    extends:
+      file: common-config.yml
+      service: microservice-configserver-config
+
+  medecin-service:
+    image: "rayaisse/medecin-service:v1"
+    container_name: medecin-ms
+    ports:
+      - "4001:4001"
+    environment:
+      SPRING_APPLICATION_NAME: "medecin-service"
+      SPRING_DATASOURCE_URL: "jdbc:mysql://medecindb:3306/medecindb"
+    depends_on:
+      medecindb:
+        condition: service_healthy
+      configserver:
+        condition: service_healthy
+    extends:
+      file: common-config.yml
+      service: microservice-configserver-config
+
+  patient_medecin-service:
+    image: "rayaisse/patient_medecin-service:v1"
+    container_name: patient_medecin-ms
+    ports:
+      - "4002:4002"
+    environment:
+      SPRING_APPLICATION_NAME: "patient_medecin-service"
+      SPRING_DATASOURCE_URL: "jdbc:mysql://userdb:3306/userdb"
+    depends_on:
+      userdb:
+        condition: service_healthy
+      configserver:
+        condition: service_healthy
+    extends:
+      file: common-config.yml
+      service: microservice-configserver-config
+
+  disponibilite-service:
+    image: "rayaisse/disponibilite-service:v1"
+    container_name: disponibilite-ms
+    ports:
+      - "4003:4003"
+    environment:
+      SPRING_APPLICATION_NAME: "disponibilite-service"
+      SPRING_DATASOURCE_URL: "jdbc:mysql://disponibilitedb:3306/disponibilitedb"
+    depends_on:
+      disponibilitedb:
+        condition: service_healthy
+      configserver:
+        condition: service_healthy
+    extends:
+      file: common-config.yml
+      service: microservice-configserver-config
+
+  rdv-service:
+    image: "rayaisse/rdv-service:v1"
+    container_name: rdv-ms
+    ports:
+      - "4004:4004"
+    environment:
+      SPRING_APPLICATION_NAME: "rdv-service"
+      SPRING_DATASOURCE_URL: "jdbc:mysql://rdvdb:3306/rdvdb"
+    depends_on:
+      rdvdb:
+        condition: service_healthy
+      configserver:
+        condition: service_healthy
+    extends:
+      file: common-config.yml
+      service: microservice-configserver-config
+
+  constante-service:
+    image: "rayaisse/constante-service:v1"
+    container_name: constante-ms
+    ports:
+      - "4005:4005"
+    environment:
+      SPRING_APPLICATION_NAME: "constante-service"
+      SPRING_DATASOURCE_URL: "jdbc:mysql://constantedb:3306/constantedb"
+    depends_on:
+      constantedb:
+        condition: service_healthy
+      configserver:
+        condition: service_healthy
+    extends:
+      file: common-config.yml
+      service: microservice-configserver-config
+
+  consultation-service:
+    image: "rayaisse/consultation-service:v1"
+    container_name: consultation-ms
+    ports:
+      - "4009:4009"
+    environment:
+      SPRING_APPLICATION_NAME: "consultation-service"
+      SPRING_DATASOURCE_URL: "jdbc:mysql://consultationdb:3306/consultationdb"
+    depends_on:
+      consultationdb:
+        condition: service_healthy
+      configserver:
+        condition: service_healthy
+    extends:
+      file: common-config.yml
+      service: microservice-configserver-config
+
+networks:
+  rayaisse:
+    driver: "bridge"

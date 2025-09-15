@@ -37,4 +37,10 @@ public class ConstanteServiceImpl implements IConstanteService {
         constanteRepository.delete(existingConstantes);
         return true;
     }
+
+    @Override
+    public ConstanteDto getConstanteByPatientId(int patientId) {
+        Constantes constantes = constanteRepository.findByPatientId(patientId).orElseThrow(() -> new ResourceNotFoundException("Aucune information disponible"));
+        return ConstantesMapper.mapToDto(constantes, new ConstanteDto());
+    }
 }

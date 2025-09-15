@@ -111,4 +111,34 @@ public class RdvController {
         return ResponseEntity.status(HttpStatus.OK).body(rdvDto);
     }
 
+
+    @Operation(
+            summary = "update rdv",
+            description = "REST API to update rdv"
+    )
+    @ApiResponses({
+            @ApiResponse(
+                    responseCode = "201",
+                    description = "HTTP Status CREATED"
+            ),
+            @ApiResponse(
+                    responseCode = "500",
+                    description = "HTTP Status Internal Server Error",
+                    content = @Content(
+                            schema = @Schema(implementation = ErrorResponseDto.class)
+                    )
+            )
+    }
+    )
+    @PostMapping("/update")
+    public ResponseEntity<ResponseDto> updateRdv( @Valid @RequestBody RdvDto rdvDto ){
+        boolean isUpdated= iRdvService.updateRdv(rdvDto);
+        if(isUpdated){
+            return ResponseEntity.status(HttpStatus.OK).body(new ResponseDto(RdvConstants.STATUS_200,RdvConstants.MESSAGE_200));
+
+        }else{
+            return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(new ResponseDto(RdvConstants.STATUS_417,RdvConstants.MESSAGE_417_UPDATE));
+        }
+    }
+
 }

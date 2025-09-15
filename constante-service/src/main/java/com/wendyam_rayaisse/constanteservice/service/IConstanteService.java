@@ -10,4 +10,6 @@ IConstanteService {
     boolean updateConstanteInfo(ConstanteDto constanteDto);
 
     boolean deleteConstanteInfo(int constanteId);
+
+    ConstanteDto getConstanteByPatientId(int patientId);
 }

@@ -8,6 +8,8 @@ import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
 
+import java.time.LocalDate;
+
 
 @Schema(name = "Patient", description = "Schema to hold patient information")
 @Data
@@ -28,7 +30,7 @@ public class PatientDto {
     @Pattern(regexp="(^$|[0-9]{8,})",message="Le contact doit avoir au moins 8 chiffres")
     private String contact;
 
-    private String dateNaissance;
+    private LocalDate dateNaissance;
 
     @NotEmpty(message="Vueillez renseigner le genre du patient")
     private  String genre;
