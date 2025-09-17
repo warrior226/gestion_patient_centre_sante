@@ -19,6 +19,7 @@
         <option value="$PROJECT_DIR$/resultat-service/pom.xml" />
         <option value="$PROJECT_DIR$/constante-service/pom.xml" />
         <option value="$PROJECT_DIR$/configserver/pom.xml" />
+        <option value="$PROJECT_DIR$/eurekaserver/pom.xml" />
       </list>
     </option>
     <option name="ignoredFiles">

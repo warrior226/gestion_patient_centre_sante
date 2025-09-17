@@ -13,9 +13,10 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="eurekaserver" />
         <module name="configserver" />
       </profile>
-      <profile name="Annotation profile for rdv-service" enabled="true">
+      <profile name="Annotation profile for resultat-service" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
@@ -47,6 +48,7 @@
       <module name="disponibilite-service" options="-parameters" />
       <module name="disponibilite-service.main" options="-parameters" />
       <module name="disponibilite-service.test" options="-parameters" />
+      <module name="eurekaserver" options="-parameters" />
       <module name="examen-service" options="-parameters" />
       <module name="medecin-service" options="-parameters" />
       <module name="patient-service" options="-parameters" />
