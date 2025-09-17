@@ -32,7 +32,27 @@ management:
   endpoint:
     health:
       probes:
-          enabled: true
+        enabled: true
+    shutdown:
+      access: unrestricted
+  info:
+    env:
+      enabled: true
 
+
+eureka:
+  instance:
+    preferIpAddress: true
+  client:
+    fetchRegistry: true
+    registerWithEureka: true
+    serviceUrl:
+      defaultZone: http://localhost:8070/eureka/
+
+info:
+  app:
+    name: "disponibilite-service"
+    description: "disponibilite service"
+    version: "1.0.0"
 
 

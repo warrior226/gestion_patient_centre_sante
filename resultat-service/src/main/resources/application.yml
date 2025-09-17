@@ -32,5 +32,26 @@ management:
     health:
       probes:
         enabled: true
+    shutdown:
+      access: unrestricted
+  info:
+    env:
+      enabled: true
+
+
+eureka:
+  instance:
+    preferIpAddress: true
+  client:
+    fetchRegistry: true
+    registerWithEureka: true
+    serviceUrl:
+      defaultZone: http://localhost:8070/eureka/
+
+info:
+  app:
+    name: "resultat-service"
+    description: "resultat service"
+    version: "1.0.0"
 
 
