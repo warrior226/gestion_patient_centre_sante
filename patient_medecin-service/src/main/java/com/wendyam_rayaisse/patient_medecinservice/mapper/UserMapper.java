@@ -10,4 +10,10 @@ public class UserMapper {
         user.setMedecinId(userDto.getMedecinId());
         return user;
     }
+
+    public static UserDto mapToUserDto(User user , UserDto userDto){
+        userDto.setPatientId(user.getPatientId());
+        userDto.setMedecinId(user.getMedecinId());
+        return userDto;
+    }
 }

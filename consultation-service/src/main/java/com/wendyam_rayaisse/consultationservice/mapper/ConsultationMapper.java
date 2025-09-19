@@ -1,5 +1,6 @@
 package com.wendyam_rayaisse.consultationservice.mapper;
 
+import com.wendyam_rayaisse.consultationservice.dto.ConsultationDetailsDto;
 import com.wendyam_rayaisse.consultationservice.dto.ConsultationDto;
 import com.wendyam_rayaisse.consultationservice.entity.Consultation;
 
@@ -38,5 +39,21 @@ public class ConsultationMapper {
         consultation.setRecommandation(consultationDto.getRecommandation());
         consultation.setDateProchaineVisite(consultationDto.getDateProchaineVisite());
         return  consultation;
+    }
+
+    public  static ConsultationDetailsDto mapToConsultationDetailsDto(Consultation consultation,ConsultationDetailsDto consultationDetailsDto){
+        consultationDetailsDto.setUserId(consultation.getUserId());
+        consultationDetailsDto.setDateConsultation(consultation.getDateConsultation());
+        consultationDetailsDto.setHeureConsultation(consultation.getHeureConsultation());
+        consultationDetailsDto.setMotifConsultation(consultation.getMotifConsultation());
+        consultationDetailsDto.setAntecedentsMedicaux(consultation.getAntecedentsMedicaux());
+        consultationDetailsDto.setAntecedentsFamiliaux(consultation.getAntecedentsFamiliaux());
+        consultationDetailsDto.setAllergies(consultation.getAllergies());
+        consultationDetailsDto.setSymptomes(consultation.getSymptomes());
+        consultationDetailsDto.setTraitementEnCours(consultation.getTraitementEnCours());
+        consultationDetailsDto.setObservation(consultation.getObservation());
+        consultationDetailsDto.setRecommandation(consultation.getRecommandation());
+        consultationDetailsDto.setDateProchaineVisite(consultation.getDateProchaineVisite());
+        return consultationDetailsDto;
     }
 }

@@ -20,6 +20,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @Tag(
         name = "CRUD REST APIs pour le microservice user",
         description = "CRUD REST APIs pour le microservice user"
@@ -127,4 +129,27 @@ public class UserController {
     }
 
 
+    @Operation(
+            summary = "recherche l'ensemble des rdv chez un patient",
+            description = "REST API to fetch list of rdv"
+    )
+    @ApiResponses({
+            @ApiResponse(
+                    responseCode = "201",
+                    description = "HTTP Status CREATED"
+            ),
+            @ApiResponse(
+                    responseCode = "500",
+                    description = "HTTP Status Internal Server Error",
+                    content = @Content(
+                            schema = @Schema(implementation = ErrorResponseDto.class)
+                    )
+            )
+    }
+    )
+    @GetMapping("/fetchByUserId")
+    public ResponseEntity<UserDto> fetchUserUserId(@RequestParam int userId){
+        UserDto userDto=iUserService.getUserById(userId);
+        return ResponseEntity.status(HttpStatus.OK).body(userDto);
+    }
 }

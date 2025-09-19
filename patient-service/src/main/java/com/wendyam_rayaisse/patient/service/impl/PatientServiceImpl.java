@@ -25,7 +25,12 @@ public class PatientServiceImpl implements IPatientService {
 
     @Override
     public PatientDto getPatientByPatientId(int patientId) {
-        return null;
+        Patient patient=patientRepository.findByPatientId(patientId).orElseThrow(
+                ()->new ResourceNotFoundException("Aucune information disponible")
+        );
+
+        return PatientMapper.mapPatientEntityToPatientDto(patient,new PatientDto());
+
     }
 
     @Override

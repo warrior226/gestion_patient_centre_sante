@@ -155,6 +155,30 @@ public class PatientController {
         return ResponseEntity.status(HttpStatus.OK).body(patientDto);
     }
 
+    @Operation(
+            summary = "Api pour rechercher les informations d'un patient en renseignant son matricule",
+            description="Api permettant de rechercher les informations d'un patient en renseignant son matricule"
+    )
+    @ApiResponses({
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "HTTP Status OK"
+            ),
+            @ApiResponse(
+                    responseCode = "417",
+                    description = "HTTP Status Internal Server Error",
+                    content = @Content(
+                            schema = @Schema(implementation = ErrorResponseDto.class)
+                    )
+            )
+    }
+    )
+    @GetMapping("/fetchById")
+    public ResponseEntity<PatientDto> fetchPatientInfoDetailsById(@RequestParam int patientId){
+        PatientDto patientDto =iPatientService.getPatientByPatientId(patientId);
+        return ResponseEntity.status(HttpStatus.OK).body(patientDto);
+    }
+
 
 
 }

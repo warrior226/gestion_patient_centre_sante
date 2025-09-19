@@ -80,8 +80,8 @@ public class MedecinController {
     }
     )
     @GetMapping("/fetchById")
-    public ResponseEntity<MedecinDto> fetchMedecinInfoDetailsById(@RequestParam int patientId){
-        MedecinDto medecinDto =iMedecinService.getMedecinById(patientId);
+    public ResponseEntity<MedecinDto> fetchMedecinInfoDetailsById(@RequestParam int medecinId){
+        MedecinDto medecinDto =iMedecinService.getMedecinById(medecinId);
         return ResponseEntity.status(HttpStatus.OK).body(medecinDto);
     }
 

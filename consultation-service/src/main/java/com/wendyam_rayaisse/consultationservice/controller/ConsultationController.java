@@ -2,9 +2,11 @@ package com.wendyam_rayaisse.consultationservice.controller;
 
 
 import com.wendyam_rayaisse.consultationservice.constants.ConsultationConstants;
+import com.wendyam_rayaisse.consultationservice.dto.ConsultationDetailsDto;
 import com.wendyam_rayaisse.consultationservice.dto.ConsultationDto;
 import com.wendyam_rayaisse.consultationservice.dto.ErrorResponseDto;
 import com.wendyam_rayaisse.consultationservice.dto.ResponseDto;
+import com.wendyam_rayaisse.consultationservice.service.IConsultationDetailService;
 import com.wendyam_rayaisse.consultationservice.service.IConsultationService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -34,6 +36,7 @@ import java.util.List;
 public class ConsultationController {
 
     private IConsultationService iConsultationService;
+    private IConsultationDetailService iConsultationDetailService;
 
     @Operation(
             summary = "Api pour la création d'une consultation",
@@ -178,6 +181,31 @@ public class ConsultationController {
         List<ConsultationDto> consultationDto =iConsultationService.getAllConsultation(userId);
         return ResponseEntity.status(HttpStatus.OK).body(consultationDto);
     }
+
+@Operation(
+            summary = "Api pour rechercher les consultations d'un patient",
+            description="Api permettant de rechercher les informations sur toutes les consultations d'un patient"
+    )
+    @ApiResponses({
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "HTTP Status OK"
+            ),
+            @ApiResponse(
+                    responseCode = "417",
+                    description = "HTTP Status Internal Server Error",
+                    content = @Content(
+                            schema = @Schema(implementation = ErrorResponseDto.class)
+                    )
+            )
+    }
+    )
+    @GetMapping("/fetchConsultationDetails")
+    public ResponseEntity<ConsultationDetailsDto> fetchConsultationfoDetail(@RequestParam int userId){
+        ConsultationDetailsDto consultation =iConsultationDetailService.fetchConsultationDetailsByUserId(userId);
+        return ResponseEntity.status(HttpStatus.OK).body(consultation);
+    }
+
 
 
 

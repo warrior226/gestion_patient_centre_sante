@@ -11,4 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 public interface PatientServiceFeignClient {
     @GetMapping(value="/api/fetch",consumes = "application/json")
     public ResponseEntity<PatientDto> fetchPatientInfoDetails(@RequestParam String matricule);
+
+    @GetMapping(value = "/fetchById",consumes = "application/json")
+    public ResponseEntity<PatientDto> fetchPatientInfoDetailsById(@RequestParam int patientId);
 }
