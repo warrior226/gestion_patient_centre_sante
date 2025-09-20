@@ -27,9 +27,11 @@ public class MedecinServiceImpl implements IMedecinService {
         medecinRepository.save(medecin);
     }
 
+
+
     @Override
-    public MedecinDto getMedecinById(int patientId) {
-        Medecin medecin = medecinRepository.findByMedecinId(patientId).orElseThrow(
+    public MedecinDto getMedecinById(int medecinId) {
+        Medecin medecin = medecinRepository.findByMedecinId(medecinId).orElseThrow(
                 ()-> new ResourceNotFoundException("Cet utilisateur n'existe pas dans notre base donnée")
         );
         return MedecinMapper.mapMedecinEntityToMedecinDto(new MedecinDto(),medecin);

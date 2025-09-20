@@ -9,5 +9,5 @@ public interface IConsultationDetailService
      * @param consultationId
      * @return consultation details based on a given user id
      */
-    ConsultationDetailsDto  fetchConsultationDetailsByUserId(int consultationId);
+    ConsultationDetailsDto  fetchConsultationDetailsByConsultationId(int consultationId);
 }

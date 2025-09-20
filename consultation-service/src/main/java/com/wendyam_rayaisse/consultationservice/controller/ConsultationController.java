@@ -201,8 +201,8 @@ public class ConsultationController {
     }
     )
     @GetMapping("/fetchConsultationDetails")
-    public ResponseEntity<ConsultationDetailsDto> fetchConsultationfoDetail(@RequestParam int userId){
-        ConsultationDetailsDto consultation =iConsultationDetailService.fetchConsultationDetailsByUserId(userId);
+    public ResponseEntity<ConsultationDetailsDto> fetchConsultationfoDetail(@RequestParam int consultationId){
+        ConsultationDetailsDto consultation =iConsultationDetailService.fetchConsultationDetailsByConsultationId(consultationId);
         return ResponseEntity.status(HttpStatus.OK).body(consultation);
     }
 

@@ -2,7 +2,7 @@ build:
   version: "1.0.0"
 
 
-patient_medecin-service:
+patient-medecin-service:
   message: "Fichier de configuration du service patient_medecin-service en local"
   contactDetails:
     name: "RAYAISSE Patrick Renaud Wendyam"

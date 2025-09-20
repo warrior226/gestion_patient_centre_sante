@@ -13,10 +13,10 @@ public interface IMedecinService {
 
     /**
      *
-     * @param patientId
+     * @param medecinId
      * @return
      */
-    MedecinDto getMedecinById(int patientId);
+    MedecinDto getMedecinById(int medecinId);
 
     /**
      *

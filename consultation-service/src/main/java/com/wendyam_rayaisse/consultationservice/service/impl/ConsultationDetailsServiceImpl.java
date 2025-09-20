@@ -22,7 +22,7 @@ public class ConsultationDetailsServiceImpl implements IConsultationDetailServic
     private PatientServiceFeignClient patientServiceFeignClient;
     private UserServiceFeignClient userServiceFeignClient;
     @Override
-    public ConsultationDetailsDto fetchConsultationDetailsByUserId(int consultationId) {
+    public ConsultationDetailsDto fetchConsultationDetailsByConsultationId(int consultationId) {
         Consultation consultation = consultationRepository.findByConsultationId(consultationId).orElseThrow(
                 ()-> new ResourceNotFoundException("Aucune information disponible")
         );
@@ -31,10 +31,13 @@ public class ConsultationDetailsServiceImpl implements IConsultationDetailServic
 
         ResponseEntity<UserDto> userDtoResponseEntity=userServiceFeignClient.fetchUserId(consultation.getUserId());
         assert userDtoResponseEntity.getBody() != null;
+        System.out.println(userDtoResponseEntity.getBody());
         ResponseEntity<MedecinDto> medecinDtoResponseEntity=medecinServiceFeignClient.fetchMedecinInfoDetailsById(userDtoResponseEntity.getBody().getMedecinId());
+        System.out.println(medecinDtoResponseEntity.getBody());
         consultationDetailsDto.setMedecinDto(medecinDtoResponseEntity.getBody());
 
         ResponseEntity<PatientDto> patientDtoResponseEntity=patientServiceFeignClient.fetchPatientInfoDetailsById(userDtoResponseEntity.getBody().getPatientId());
+        System.out.println(patientDtoResponseEntity.getBody());
         consultationDetailsDto.setPatientDto(patientDtoResponseEntity.getBody());
 
         return consultationDetailsDto;

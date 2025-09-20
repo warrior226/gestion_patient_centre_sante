@@ -18,7 +18,7 @@ import java.util.function.Function;
 
 @Repository
 public interface MedecinRepository extends JpaRepository<Medecin,Long> {
-    Optional<Medecin> findByMedecinId(int patientId);
+    Optional<Medecin> findByMedecinId(int medecinId);
 
     Optional<Medecin> findByMatricule(String matricule);
 

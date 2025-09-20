@@ -3,7 +3,7 @@ server:
 
 spring:
   application:
-    name: "patient_medecin-service"
+    name: "patient-medecin-service"
   profiles:
     active: "prod"
   datasource:

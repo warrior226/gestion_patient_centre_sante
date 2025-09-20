@@ -9,11 +9,11 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.wendyam_rayaisse</groupId>
-    <artifactId>patient_medecin-service</artifactId>
+    <artifactId>patient-medecin-service</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
-    <name>patient_medecin-service</name>
-    <description>patient_medecin-service</description>
+    <name>patient-medecin-service</name>
+    <description>patient-medecin-service</description>
     <url/>
     <licenses>
         <license/>

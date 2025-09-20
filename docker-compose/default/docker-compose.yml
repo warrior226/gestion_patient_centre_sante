@@ -160,13 +160,13 @@ services:
       file: common-config.yml
       service: microservice-configserver-config
 
-  patient_medecin-service:
-    image: "rayaisse/patient_medecin-service:v1"
-    container_name: patient_medecin-ms
+  patient-medecin-service:
+    image: "rayaisse/patient-medecin-service:v1"
+    container_name: patient-medecin-ms
     ports:
       - "4002:4002"
     environment:
-      SPRING_APPLICATION_NAME: "patient_medecin-service"
+      SPRING_APPLICATION_NAME: "patient-medecin-service"
       SPRING_DATASOURCE_URL: "jdbc:mysql://userdb:3306/userdb"
     depends_on:
       userdb:

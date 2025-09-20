@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
-@FeignClient("patient_medecin-service")
+@FeignClient("patient-medecin-service")
 public interface UserServiceFeignClient {
     @PostMapping(value = "/api/create",consumes = "application/json")
     public ResponseEntity<ResponseDto> createUser(@Valid @RequestBody UserDto userDto);
