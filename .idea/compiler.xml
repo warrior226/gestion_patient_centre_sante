@@ -33,6 +33,7 @@
         <module name="constante-service" />
         <module name="rdv-service" />
         <module name="consultation-service" />
+        <module name="patient-medecin-service" />
         <module name="patient-service" />
         <module name="patient_medecin-service" />
       </profile>
@@ -54,6 +55,7 @@
       <module name="examen-service" options="-parameters" />
       <module name="gatewayserver" options="-parameters" />
       <module name="medecin-service" options="-parameters" />
+      <module name="patient-medecin-service" options="-parameters" />
       <module name="patient-service" options="-parameters" />
       <module name="patient_medecin-service" options="-parameters" />
       <module name="prescription-service" options="-parameters" />
