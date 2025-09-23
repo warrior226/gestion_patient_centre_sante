@@ -14,6 +14,8 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -32,7 +34,7 @@ import org.springframework.web.bind.annotation.*;
 public class PatientController {
 
     private IPatientService iPatientService;
-
+    private static final Logger logger = LoggerFactory.getLogger(PatientController.class);
 
     @Operation(
             summary = "Api pour la création de compte d'un patient",
@@ -174,7 +176,8 @@ public class PatientController {
     }
     )
     @GetMapping("/fetchById")
-    public ResponseEntity<PatientDto> fetchPatientInfoDetailsById(@RequestParam int patientId){
+    public ResponseEntity<PatientDto> fetchPatientInfoDetailsById(@RequestHeader("healtcareApp-correlation-id")String correlationId, @RequestParam int patientId){
+        logger.info("healtcareApp-correlation-id found: {}", correlationId);
         PatientDto patientDto =iPatientService.getPatientByPatientId(patientId);
         return ResponseEntity.status(HttpStatus.OK).body(patientDto);
     }

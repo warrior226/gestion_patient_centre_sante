@@ -22,21 +22,21 @@ public class ConsultationDetailsServiceImpl implements IConsultationDetailServic
     private PatientServiceFeignClient patientServiceFeignClient;
     private UserServiceFeignClient userServiceFeignClient;
     @Override
-    public ConsultationDetailsDto fetchConsultationDetailsByConsultationId(int consultationId) {
+    public ConsultationDetailsDto fetchConsultationDetailsByConsultationId(int consultationId,String correlationId) {
         Consultation consultation = consultationRepository.findByConsultationId(consultationId).orElseThrow(
                 ()-> new ResourceNotFoundException("Aucune information disponible")
         );
 
         ConsultationDetailsDto consultationDetailsDto = ConsultationMapper.mapToConsultationDetailsDto(consultation,new ConsultationDetailsDto());
 
-        ResponseEntity<UserDto> userDtoResponseEntity=userServiceFeignClient.fetchUserId(consultation.getUserId());
+        ResponseEntity<UserDto> userDtoResponseEntity=userServiceFeignClient.fetchUserId(correlationId,consultation.getUserId());
         assert userDtoResponseEntity.getBody() != null;
         System.out.println(userDtoResponseEntity.getBody());
-        ResponseEntity<MedecinDto> medecinDtoResponseEntity=medecinServiceFeignClient.fetchMedecinInfoDetailsById(userDtoResponseEntity.getBody().getMedecinId());
+        ResponseEntity<MedecinDto> medecinDtoResponseEntity=medecinServiceFeignClient.fetchMedecinInfoDetailsById(correlationId,userDtoResponseEntity.getBody().getMedecinId());
         System.out.println(medecinDtoResponseEntity.getBody());
         consultationDetailsDto.setMedecinDto(medecinDtoResponseEntity.getBody());
 
-        ResponseEntity<PatientDto> patientDtoResponseEntity=patientServiceFeignClient.fetchPatientInfoDetailsById(userDtoResponseEntity.getBody().getPatientId());
+        ResponseEntity<PatientDto> patientDtoResponseEntity=patientServiceFeignClient.fetchPatientInfoDetailsById(correlationId,userDtoResponseEntity.getBody().getPatientId());
         System.out.println(patientDtoResponseEntity.getBody());
         consultationDetailsDto.setPatientDto(patientDtoResponseEntity.getBody());
 

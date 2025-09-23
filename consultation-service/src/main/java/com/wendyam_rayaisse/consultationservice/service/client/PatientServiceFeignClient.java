@@ -5,6 +5,7 @@ import com.wendyam_rayaisse.consultationservice.dto.PatientDto;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @FeignClient("patient-service")
@@ -13,5 +14,5 @@ public interface PatientServiceFeignClient {
     public ResponseEntity<PatientDto> fetchPatientInfoDetails(@RequestParam String matricule);
 
     @GetMapping(value = "/api/fetchById",consumes = "application/json")
-    public ResponseEntity<PatientDto> fetchPatientInfoDetailsById(@RequestParam int patientId);
+    public ResponseEntity<PatientDto> fetchPatientInfoDetailsById(@RequestHeader("healtcareApp-correlation-id")String correlationId, @RequestParam int patientId);
 }

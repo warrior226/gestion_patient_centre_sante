@@ -14,6 +14,8 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -33,6 +35,7 @@ import java.util.List;
 public class UserController {
 
     private IUserService iUserService;
+    private static final Logger logger = LoggerFactory.getLogger(UserController.class);
 
 
 
@@ -148,7 +151,8 @@ public class UserController {
     }
     )
     @GetMapping("/fetchByUserId")
-    public ResponseEntity<UserDto> fetchUserUserId(@RequestParam int userId){
+    public ResponseEntity<UserDto> fetchUserUserId(@RequestHeader("healtcareApp-correlation-id")String correlationId, @RequestParam int userId){
+        logger.info("healtcareApp-correlation-id found: {}", correlationId);
         UserDto userDto=iUserService.getUserById(userId);
         return ResponseEntity.status(HttpStatus.OK).body(userDto);
     }

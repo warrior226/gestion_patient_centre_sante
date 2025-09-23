@@ -54,3 +54,9 @@ info:
     name: "medecin-service"
     description: "medecin service"
     version: "1.0.0"
+
+logging:
+  level:
+    com:
+      wendyam_rayaisse:
+        medecinservice: DEBUG

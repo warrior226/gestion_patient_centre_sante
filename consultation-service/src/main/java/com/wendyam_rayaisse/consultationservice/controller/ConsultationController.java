@@ -16,6 +16,8 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -37,6 +39,7 @@ public class ConsultationController {
 
     private IConsultationService iConsultationService;
     private IConsultationDetailService iConsultationDetailService;
+    private static final Logger logger = LoggerFactory.getLogger(ConsultationController.class);
 
     @Operation(
             summary = "Api pour la création d'une consultation",
@@ -201,8 +204,13 @@ public class ConsultationController {
     }
     )
     @GetMapping("/fetchConsultationDetails")
-    public ResponseEntity<ConsultationDetailsDto> fetchConsultationfoDetail(@RequestParam int consultationId){
-        ConsultationDetailsDto consultation =iConsultationDetailService.fetchConsultationDetailsByConsultationId(consultationId);
+    public ResponseEntity<ConsultationDetailsDto> fetchConsultationfoDetail(
+            @RequestHeader("healtcareApp-correlation-id")String correlationId,
+            @RequestParam int consultationId
+){
+
+        logger.info("healtcareApp-correlation-id found: {}", consultationId);
+        ConsultationDetailsDto consultation =iConsultationDetailService.fetchConsultationDetailsByConsultationId(consultationId,correlationId);
         return ResponseEntity.status(HttpStatus.OK).body(consultation);
     }
 
