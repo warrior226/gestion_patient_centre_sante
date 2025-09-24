@@ -7,7 +7,7 @@ import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-@FeignClient("patient-medecin-service")
+@FeignClient(name="patient-medecin-service",fallback = UserServiceFallback.class)
 public interface UserServiceFeignClient {
     @PostMapping(value = "/api/create",consumes = "application/json")
     public ResponseEntity<ResponseDto> createUser(@Valid @RequestBody UserDto userDto);

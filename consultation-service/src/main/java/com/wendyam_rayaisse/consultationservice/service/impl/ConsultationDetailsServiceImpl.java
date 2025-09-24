@@ -34,12 +34,15 @@ public class ConsultationDetailsServiceImpl implements IConsultationDetailServic
         System.out.println(userDtoResponseEntity.getBody());
         ResponseEntity<MedecinDto> medecinDtoResponseEntity=medecinServiceFeignClient.fetchMedecinInfoDetailsById(correlationId,userDtoResponseEntity.getBody().getMedecinId());
         System.out.println(medecinDtoResponseEntity.getBody());
-        consultationDetailsDto.setMedecinDto(medecinDtoResponseEntity.getBody());
+        if(medecinDtoResponseEntity!=null){
+            consultationDetailsDto.setMedecinDto(medecinDtoResponseEntity.getBody());
 
+        }
         ResponseEntity<PatientDto> patientDtoResponseEntity=patientServiceFeignClient.fetchPatientInfoDetailsById(correlationId,userDtoResponseEntity.getBody().getPatientId());
         System.out.println(patientDtoResponseEntity.getBody());
-        consultationDetailsDto.setPatientDto(patientDtoResponseEntity.getBody());
-
+        if(patientDtoResponseEntity!=null){
+            consultationDetailsDto.setPatientDto(patientDtoResponseEntity.getBody());
+        }
         return consultationDetailsDto;
     }
 }

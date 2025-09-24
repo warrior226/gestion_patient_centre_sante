@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestParam;
 
-@FeignClient("medecin-service")
+@FeignClient(name = "medecin-service",fallback = MedecinServiceFallback.class)
 public interface MedecinServiceFeignClient {
     @GetMapping(value = "/api/fetchByMatricule",consumes = "application/json")
     public ResponseEntity<MedecinDto> fetchMedecinInfoDetailsByMatricule(@RequestParam String matricule);

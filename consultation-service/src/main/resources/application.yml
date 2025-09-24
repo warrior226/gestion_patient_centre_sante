@@ -18,6 +18,11 @@ spring:
   config:
     import: "optional:configserver:http://localhost:8071/"
 
+  cloud:
+    openfeign:
+      circuitbreaker:
+        enabled: true
+
 management:
   endpoints:
     web:
@@ -58,3 +63,16 @@ logging:
     com:
       wendyam_rayaisse:
         consultationservice: DEBUG
+
+# Circuit Breaker Configuration
+# - Monitors last 10 calls (slidingWindowSize)
+# - If 50%+ calls fail, circuit opens (failureRateThreshold: 50%)
+# - After 10 seconds, allows 2 test calls (permittedNumberOfCallsInHalfOpenState)
+# - If test calls succeed, circuit closes; if not, stays open for another 10 seconds
+resilience4j.circuitbreaker:
+  configs:
+    default:
+      slidingWindowSize: 10
+      permittedNumberOfCallsInHalfOpenState: 2
+      failureRateThreshold: 50
+      waitDurationInOpenState: 10000
