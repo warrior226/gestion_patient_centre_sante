@@ -176,8 +176,8 @@ public class PatientController {
     }
     )
     @GetMapping("/fetchById")
-    public ResponseEntity<PatientDto> fetchPatientInfoDetailsById(@RequestHeader("healtcareApp-correlation-id")String correlationId, @RequestParam int patientId){
-        logger.info("healtcareApp-correlation-id found: {}", correlationId);
+    public ResponseEntity<PatientDto> fetchPatientInfoDetailsById(@RequestHeader("healthcareApp-correlation-id")String correlationId, @RequestParam int patientId){
+        logger.info("healthcareApp-correlation-id found: {}", correlationId);
         PatientDto patientDto =iPatientService.getPatientByPatientId(patientId);
         return ResponseEntity.status(HttpStatus.OK).body(patientDto);
     }

@@ -151,8 +151,8 @@ public class UserController {
     }
     )
     @GetMapping("/fetchByUserId")
-    public ResponseEntity<UserDto> fetchUserUserId(@RequestHeader("healtcareApp-correlation-id")String correlationId, @RequestParam int userId){
-        logger.info("healtcareApp-correlation-id found: {}", correlationId);
+    public ResponseEntity<UserDto> fetchUserUserId(@RequestHeader("healthcareApp-correlation-id")String correlationId, @RequestParam int userId){
+        logger.info("healthcareApp-correlation-id found: {}", correlationId);
         UserDto userDto=iUserService.getUserById(userId);
         return ResponseEntity.status(HttpStatus.OK).body(userDto);
     }

@@ -205,11 +205,11 @@ public class ConsultationController {
     )
     @GetMapping("/fetchConsultationDetails")
     public ResponseEntity<ConsultationDetailsDto> fetchConsultationfoDetail(
-            @RequestHeader("healtcareApp-correlation-id")String correlationId,
+            @RequestHeader("healthcareApp-correlation-id")String correlationId,
             @RequestParam int consultationId
 ){
 
-        logger.info("healtcareApp-correlation-id found: {}", consultationId);
+        logger.info("healthcareApp-correlation-id found: {}", consultationId);
         ConsultationDetailsDto consultation =iConsultationDetailService.fetchConsultationDetailsByConsultationId(consultationId,correlationId);
         return ResponseEntity.status(HttpStatus.OK).body(consultation);
     }

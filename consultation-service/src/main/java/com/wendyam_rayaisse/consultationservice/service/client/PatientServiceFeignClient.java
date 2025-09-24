@@ -14,5 +14,5 @@ public interface PatientServiceFeignClient {
     public ResponseEntity<PatientDto> fetchPatientInfoDetails(@RequestParam String matricule);
 
     @GetMapping(value = "/api/fetchById",consumes = "application/json")
-    public ResponseEntity<PatientDto> fetchPatientInfoDetailsById(@RequestHeader("healtcareApp-correlation-id")String correlationId, @RequestParam int patientId);
+    public ResponseEntity<PatientDto> fetchPatientInfoDetailsById(@RequestHeader("healthcareApp-correlation-id")String correlationId, @RequestParam int patientId);
 }
