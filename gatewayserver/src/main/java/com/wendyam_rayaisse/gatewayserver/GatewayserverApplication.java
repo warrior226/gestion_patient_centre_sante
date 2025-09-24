@@ -22,7 +22,10 @@ public class  GatewayserverApplication {
                 .route(p->p
                         .path("/healthcareApp/medecin-service/**")
                         .filters(f->f.rewritePath("/healthcareApp/medecin-service/(?<segment>.*)","/${segment}")
-                                .addRequestHeader("X-Response-Time", LocalDateTime.now().toString()))
+                                .addRequestHeader("X-Response-Time", LocalDateTime.now().toString())
+                                .circuitBreaker(config->config.setName("medecin-service-CircuitBreaker")
+                                        .setFallbackUri("forward:/contactSupport"))
+                        )
                         .uri("lb://MEDECIN-SERVICE"))
                 .route(p->p
                         .path("/healthcareApp/patient-service/**")

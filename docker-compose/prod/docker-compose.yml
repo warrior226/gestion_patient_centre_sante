@@ -112,7 +112,7 @@ services:
 
 
   configserver:
-    image: "rayaisse/configserver:v2"
+    image: "rayaisse/configserver:v3"
     container_name: configserver-ms
     ports:
       - "8071:8071"
@@ -128,7 +128,7 @@ services:
 
 
   eurekaserver:
-    image: "rayaisse/eurekaserver:v2"
+    image: "rayaisse/eurekaserver:v3"
     container_name: eurekaserver-ms
     ports:
       - "8070:8070"
@@ -146,10 +146,15 @@ services:
 
 
   patient-service:
-    image: "rayaisse/patient-service:v2"
+    image: "rayaisse/patient-service:v3"
     container_name: patient-ms
     ports:
       - "4000:4000"
+    healthcheck:
+      test: "curl --fail --silent localhost:4000/actuator/health/readiness | grep UP || exit 1"
+      interval: 10s
+      timeout: 5s
+      retries: 10
     environment:
       SPRING_APPLICATION_NAME: "patient-service"
       SPRING_DATASOURCE_URL: "jdbc:mysql://patientdb:3306/patientdb"
@@ -163,10 +168,15 @@ services:
       service: microservice-eureka-config
 
   medecin-service:
-    image: "rayaisse/medecin-service:v2"
+    image: "rayaisse/medecin-service:v3"
     container_name: medecin-ms
     ports:
       - "4001:4001"
+    healthcheck:
+      test: "curl --fail --silent localhost:4001/actuator/health/readiness | grep UP || exit 1"
+      interval: 10s
+      timeout: 5s
+      retries: 10
     environment:
       SPRING_APPLICATION_NAME: "medecin-service"
       SPRING_DATASOURCE_URL: "jdbc:mysql://medecindb:3306/medecindb"
@@ -180,10 +190,15 @@ services:
       service: microservice-eureka-config
 
   patient-medecin-service:
-    image: "rayaisse/patient-medecin-service:v2"
+    image: "rayaisse/patient-medecin-service:v3"
     container_name: patient-medecin-ms
     ports:
       - "4002:4002"
+    healthcheck:
+      test: "curl --fail --silent localhost:4002/actuator/health/readiness | grep UP || exit 1"
+      interval: 10s
+      timeout: 5s
+      retries: 10
     environment:
       SPRING_APPLICATION_NAME: "patient-medecin-service"
       SPRING_DATASOURCE_URL: "jdbc:mysql://userdb:3306/userdb"
@@ -197,10 +212,15 @@ services:
       service: microservice-eureka-config
 
   disponibilite-service:
-    image: "rayaisse/disponibilite-service:v2"
+    image: "rayaisse/disponibilite-service:v3"
     container_name: disponibilite-ms
     ports:
       - "4003:4003"
+    healthcheck:
+      test: "curl --fail --silent localhost:4003/actuator/health/readiness | grep UP || exit 1"
+      interval: 10s
+      timeout: 5s
+      retries: 10
     environment:
       SPRING_APPLICATION_NAME: "disponibilite-service"
       SPRING_DATASOURCE_URL: "jdbc:mysql://disponibilitedb:3306/disponibilitedb"
@@ -214,10 +234,15 @@ services:
       service: microservice-configserver-config
 
   rdv-service:
-    image: "rayaisse/rdv-service:v2"
+    image: "rayaisse/rdv-service:v3"
     container_name: rdv-ms
     ports:
       - "4004:4004"
+    healthcheck:
+      test: "curl --fail --silent localhost:4004/actuator/health/readiness | grep UP || exit 1"
+      interval: 10s
+      timeout: 5s
+      retries: 10
     environment:
       SPRING_APPLICATION_NAME: "rdv-service"
       SPRING_DATASOURCE_URL: "jdbc:mysql://rdvdb:3306/rdvdb"
@@ -231,10 +256,15 @@ services:
       service: microservice-configserver-config
 
   constante-service:
-    image: "rayaisse/constante-service:v2"
+    image: "rayaisse/constante-service:v3"
     container_name: constante-ms
     ports:
       - "4005:4005"
+    healthcheck:
+      test: "curl --fail --silent localhost:4005/actuator/health/readiness | grep UP || exit 1"
+      interval: 10s
+      timeout: 5s
+      retries: 10
     environment:
       SPRING_APPLICATION_NAME: "constante-service"
       SPRING_DATASOURCE_URL: "jdbc:mysql://constantedb:3306/constantedb"
@@ -248,10 +278,15 @@ services:
       service: microservice-configserver-config
 
   consultation-service:
-    image: "rayaisse/consultation-service:v2"
+    image: "rayaisse/consultation-service:v3"
     container_name: consultation-ms
     ports:
       - "4009:4009"
+    healthcheck:
+      test: "curl --fail --silent localhost:4009/actuator/health/readiness | grep UP || exit 1"
+      interval: 10s
+      timeout: 5s
+      retries: 10
     environment:
       SPRING_APPLICATION_NAME: "consultation-service"
       SPRING_DATASOURCE_URL: "jdbc:mysql://consultationdb:3306/consultationdb"
@@ -259,6 +294,34 @@ services:
       consultationdb:
         condition: service_healthy
       configserver:
+        condition: service_healthy
+    extends:
+      file: common-config.yml
+      service: microservice-eureka-config
+
+  gatewayserver:
+    image: "rayaisse/gatewayserver:v3"
+    container_name: gatewayserver-ms
+    ports:
+      - "8072:8072"
+    environment:
+      SPRING_APPLICATION_NAME: "gatewayserver"
+    depends_on:
+      constante-service:
+        condition: service_healthy
+      consultation-service:
+        condition: service_healthy
+      disponibilite-service:
+        condition: service_healthy
+      medecin-service:
+        condition: service_healthy
+      patient-medecin-service:
+        condition: service_healthy
+      patient-service:
+        condition: service_healthy
+      configserver:
+        condition: service_healthy
+      rdv-service:
         condition: service_healthy
     extends:
       file: common-config.yml
