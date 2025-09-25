@@ -8,6 +8,7 @@ import com.wendyam_rayaisse.consultationservice.dto.ErrorResponseDto;
 import com.wendyam_rayaisse.consultationservice.dto.ResponseDto;
 import com.wendyam_rayaisse.consultationservice.service.IConsultationDetailService;
 import com.wendyam_rayaisse.consultationservice.service.IConsultationService;
+import io.github.resilience4j.retry.annotation.Retry;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -215,7 +216,17 @@ public class ConsultationController {
     }
 
 
+    @Retry(name = "getBuildInfo",fallbackMethod = "getBuildInfoFallback")
+    @GetMapping("/build-info")
+    public ResponseEntity<String>getBuildInfo(){
+        logger.debug("getBuildInfo() method called");
+        return  ResponseEntity.status(HttpStatus.OK).body("2.2");
+    }
 
+    public ResponseEntity<String>getBuildInfoFallback(Throwable throwable){
+        logger.debug("getBuildInfoFallback() method called");
+        return  ResponseEntity.status(HttpStatus.OK).body("0.9");
+    }
 
 
 }
