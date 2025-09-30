@@ -129,7 +129,7 @@ services:
     ports:
       - "8071:8071"
     healthcheck:
-      test: "curl --fail --silent localhost:8071/actuator/health/readiness | grep UP || exit 1"
+      test: ["CMD-SHELL", "curl --fail --silent http://localhost:8071/actuator/health/readiness | grep -q '\"status\":\"UP\"' || exit 1"]
       interval: 10s
       timeout: 5s
       retries: 10
@@ -148,7 +148,7 @@ services:
       configserver:
         condition: service_healthy
     healthcheck:
-      test: "curl --fail --silent localhost:8070 /actuator/health/readiness | grep UP || exit 1"
+      test: ["CMD-SHELL", "curl --fail --silent http://localhost:8070/actuator/health/readiness | grep -q '\"status\":\"UP\"' || exit 1"]
       interval: 10s
       timeout: 5s
       retries: 10
@@ -166,7 +166,7 @@ services:
     ports:
       - "4000:4000"
     healthcheck:
-      test: "curl --fail --silent localhost:4000/actuator/health/readiness | grep UP || exit 1"
+      test: ["CMD-SHELL", "curl --fail --silent http://localhost:4000/actuator/health/readiness | grep -q '\"status\":\"UP\"' || exit 1"]
       interval: 10s
       timeout: 5s
       retries: 10
@@ -190,7 +190,7 @@ services:
     ports:
       - "4001:4001"
     healthcheck:
-      test: "curl --fail --silent localhost:4001/actuator/health/readiness | grep UP || exit 1"
+      test: ["CMD-SHELL", "curl --fail --silent http://localhost:4001/actuator/health/readiness | grep -q '\"status\":\"UP\"' || exit 1"]
       interval: 10s
       timeout: 5s
       retries: 10
@@ -214,7 +214,7 @@ services:
     ports:
       - "4002:4002"
     healthcheck:
-      test: "curl --fail --silent localhost:4002/actuator/health/readiness | grep UP || exit 1"
+      test: ["CMD-SHELL", "curl --fail --silent http://localhost:4002/actuator/health/readiness | grep -q '\"status\":\"UP\"' || exit 1"]
       interval: 10s
       timeout: 5s
       retries: 10
@@ -238,7 +238,7 @@ services:
     ports:
       - "4003:4003"
     healthcheck:
-      test: "curl --fail --silent localhost:4003/actuator/health/readiness | grep UP || exit 1"
+      test: ["CMD-SHELL", "curl --fail --silent http://localhost:4003/actuator/health/readiness | grep -q '\"status\":\"UP\"' || exit 1"]
       interval: 10s
       timeout: 5s
       retries: 10
@@ -262,7 +262,7 @@ services:
     ports:
       - "4004:4004"
     healthcheck:
-      test: "curl --fail --silent localhost:4004/actuator/health/readiness | grep UP || exit 1"
+      test: ["CMD-SHELL", "curl --fail --silent http://localhost:4004/actuator/health/readiness | grep -q '\"status\":\"UP\"' || exit 1"]
       interval: 10s
       timeout: 5s
       retries: 10
@@ -286,7 +286,7 @@ services:
     ports:
       - "4005:4005"
     healthcheck:
-      test: "curl --fail --silent localhost:4005/actuator/health/readiness | grep UP || exit 1"
+      test: ["CMD-SHELL", "curl --fail --silent http://localhost:4005/actuator/health/readiness | grep -q '\"status\":\"UP\"' || exit 1"]
       interval: 10s
       timeout: 5s
       retries: 10
@@ -310,7 +310,7 @@ services:
     ports:
       - "4009:4009"
     healthcheck:
-      test: "curl --fail --silent localhost:4009/actuator/health/readiness | grep UP || exit 1"
+      test: ["CMD-SHELL", "curl --fail --silent http://localhost:4009/actuator/health/readiness | grep -q '\"status\":\"UP\"' || exit 1"]
       interval: 10s
       timeout: 5s
       retries: 10

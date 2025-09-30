@@ -57,6 +57,12 @@ public class  GatewayserverApplication {
                                 .addRequestHeader("X-Response-Time", LocalDateTime.now().toString()))
                         .uri("lb://RDV-SERVICE"))
                 .route(p->p
+                        .path("/healthcareApp/constante-service/**")
+                        .filters(f->f.rewritePath("/healthcareApp/constante-service/(?<segment>.*)","/${segment}")
+                                .addRequestHeader("X-Response-Time", LocalDateTime.now().toString()))
+                        .uri("lb://CONSTANTE-SERVICE"))
+
+                .route(p->p
                         .path("/healthcareApp/consultation-service/**")
                         .filters(f->f.rewritePath("/healthcareApp/consultation-service/(?<segment>.*)","/${segment}")
                                 .addRequestHeader("X-Response-Time", LocalDateTime.now().toString())
