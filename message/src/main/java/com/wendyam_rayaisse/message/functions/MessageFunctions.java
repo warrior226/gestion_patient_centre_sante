@@ -13,7 +13,7 @@ import java.util.function.Function;
 public class MessageFunctions {
     private static final Logger logger = LoggerFactory.getLogger(MessageFunctions.class);
 
-    @Bean
+    @Bean(name = "sendEmail")
     public Function<ConsultationMsgDto,ConsultationMsgDto> sendEmail(){
 
         return consultationMsgDto -> {
@@ -23,7 +23,7 @@ public class MessageFunctions {
     }
 
 
-    @Bean
+    @Bean(name = "sendSms")
     public Function<ConsultationMsgDto,Long> sendSms(){
 
         return consultationMsgDto -> {
