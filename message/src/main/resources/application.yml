@@ -6,4 +6,4 @@ spring:
     name: "message"
   cloud:
     function:
-      definition: sendEmail|sendSms
+      definition: email|sms

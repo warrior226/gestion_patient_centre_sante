@@ -14,7 +14,7 @@ public class MessageFunctions {
     private static final Logger logger = LoggerFactory.getLogger(MessageFunctions.class);
 
     @Bean
-    public Function<ConsultationMsgDto,ConsultationMsgDto> sendEmail(){
+    public Function<ConsultationMsgDto,ConsultationMsgDto> email(){
 
         return consultationMsgDto -> {
             logger.info("Sending email to {}",consultationMsgDto.toString());
@@ -24,7 +24,7 @@ public class MessageFunctions {
 
 
     @Bean
-    public Function<ConsultationMsgDto,Long> sendSms(){
+    public Function<ConsultationMsgDto,Long> sms(){
 
         return consultationMsgDto -> {
             logger.info("Sending sms to {}",consultationMsgDto.toString());
