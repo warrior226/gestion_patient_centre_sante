@@ -124,7 +124,7 @@ services:
 
 
   configserver:
-    image: "rayaisse/configserver:v4"
+    image: "rayaisse/configserver:v5"
     container_name: configserver-ms
     ports:
       - "8071:8071"
@@ -140,7 +140,7 @@ services:
 
 
   eurekaserver:
-    image: "rayaisse/eurekaserver:v4"
+    image: "rayaisse/eurekaserver:v5"
     container_name: eurekaserver-ms
     ports:
       - "8070:8070"
@@ -161,7 +161,7 @@ services:
 
 
   patient-service:
-    image: "rayaisse/patient-service:v4"
+    image: "rayaisse/patient-service:v5"
     container_name: patient-ms
     ports:
       - "4000:4000"
@@ -185,7 +185,7 @@ services:
       service: microservice-eureka-config
 
   medecin-service:
-    image: "rayaisse/medecin-service:v4"
+    image: "rayaisse/medecin-service:v5"
     container_name: medecin-ms
     ports:
       - "4001:4001"
@@ -209,7 +209,7 @@ services:
       service: microservice-eureka-config
 
   patient-medecin-service:
-    image: "rayaisse/patient-medecin-service:v4"
+    image: "rayaisse/patient-medecin-service:v5"
     container_name: patient-medecin-ms
     ports:
       - "4002:4002"
@@ -233,7 +233,7 @@ services:
       service: microservice-eureka-config
 
   disponibilite-service:
-    image: "rayaisse/disponibilite-service:v4"
+    image: "rayaisse/disponibilite-service:v5"
     container_name: disponibilite-ms
     ports:
       - "4003:4003"
@@ -257,7 +257,7 @@ services:
       service: microservice-eureka-config
 
   rdv-service:
-    image: "rayaisse/rdv-service:v4"
+    image: "rayaisse/rdv-service:v5"
     container_name: rdv-ms
     ports:
       - "4004:4004"
@@ -281,7 +281,7 @@ services:
       service: microservice-eureka-config
 
   constante-service:
-    image: "rayaisse/constante-service:v4"
+    image: "rayaisse/constante-service:v5"
     container_name: constante-ms
     ports:
       - "4005:4005"
@@ -305,7 +305,7 @@ services:
       service: microservice-eureka-config
 
   consultation-service:
-    image: "rayaisse/consultation-service:v4"
+    image: "rayaisse/consultation-service:v5"
     container_name: consultation-ms
     ports:
       - "4009:4009"
@@ -329,7 +329,7 @@ services:
       service: microservice-eureka-config
 
   gatewayserver:
-    image: "rayaisse/gatewayserver:v4"
+    image: "rayaisse/gatewayserver:v5"
     container_name: gatewayserver-ms
     ports:
       - "8072:8072"
