@@ -1,4 +1,20 @@
 services:
+  rabbit:
+    image: rabbitmq:4.0-management
+    hostname: rabbitmq
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    healthcheck:
+      test: rabbitmq-diagnostics check_port_connectivity
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 5s
+    extends:
+      file: common-config.yml
+      service: network-deploy-service
+
   redis:
     image: redis
     ports:
@@ -124,7 +140,7 @@ services:
 
 
   configserver:
-    image: "rayaisse/configserver:v5"
+    image: "rayaisse/configserver:v6"
     container_name: configserver-ms
     ports:
       - "8071:8071"
@@ -140,7 +156,7 @@ services:
 
 
   eurekaserver:
-    image: "rayaisse/eurekaserver:v5"
+    image: "rayaisse/eurekaserver:v6"
     container_name: eurekaserver-ms
     ports:
       - "8070:8070"
@@ -161,7 +177,7 @@ services:
 
 
   patient-service:
-    image: "rayaisse/patient-service:v5"
+    image: "rayaisse/patient-service:v6"
     container_name: patient-ms
     ports:
       - "4000:4000"
@@ -185,7 +201,7 @@ services:
       service: microservice-eureka-config
 
   medecin-service:
-    image: "rayaisse/medecin-service:v5"
+    image: "rayaisse/medecin-service:v6"
     container_name: medecin-ms
     ports:
       - "4001:4001"
@@ -209,7 +225,7 @@ services:
       service: microservice-eureka-config
 
   patient-medecin-service:
-    image: "rayaisse/patient-medecin-service:v5"
+    image: "rayaisse/patient-medecin-service:v6"
     container_name: patient-medecin-ms
     ports:
       - "4002:4002"
@@ -233,7 +249,7 @@ services:
       service: microservice-eureka-config
 
   disponibilite-service:
-    image: "rayaisse/disponibilite-service:v5"
+    image: "rayaisse/disponibilite-service:v6"
     container_name: disponibilite-ms
     ports:
       - "4003:4003"
@@ -257,7 +273,7 @@ services:
       service: microservice-eureka-config
 
   rdv-service:
-    image: "rayaisse/rdv-service:v5"
+    image: "rayaisse/rdv-service:v6"
     container_name: rdv-ms
     ports:
       - "4004:4004"
@@ -281,7 +297,7 @@ services:
       service: microservice-eureka-config
 
   constante-service:
-    image: "rayaisse/constante-service:v5"
+    image: "rayaisse/constante-service:v6"
     container_name: constante-ms
     ports:
       - "4005:4005"
@@ -305,7 +321,7 @@ services:
       service: microservice-eureka-config
 
   consultation-service:
-    image: "rayaisse/consultation-service:v5"
+    image: "rayaisse/consultation-service:v6"
     container_name: consultation-ms
     ports:
       - "4009:4009"
@@ -317,6 +333,7 @@ services:
     environment:
       SPRING_APPLICATION_NAME: "consultation-service"
       SPRING_DATASOURCE_URL: "jdbc:mysql://consultationdb:3306/consultationdb"
+      SPRING_RABBITMQ_HOST: "rabbit"
     depends_on:
       consultationdb:
         condition: service_healthy
@@ -324,12 +341,26 @@ services:
         condition: service_healthy
       eurekaserver:
         condition: service_healthy
+      rabbit:
+        condition: service_healthy
     extends:
       file: common-config.yml
       service: microservice-eureka-config
 
+  message:
+    image: "rayaisse/message:v6"
+    container_name: message-ms
+    depends_on:
+      rabbit:
+        condition: service_healthy
+    environment:
+      SPRING_RABBITMQ_HOST: "rabbit"
+    extends:
+      file: common-config.yml
+      service: network-deploy-service
+
   gatewayserver:
-    image: "rayaisse/gatewayserver:v5"
+    image: "rayaisse/gatewayserver:v6"
     container_name: gatewayserver-ms
     ports:
       - "8072:8072"
