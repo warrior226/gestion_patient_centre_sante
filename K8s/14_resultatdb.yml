@@ -1,0 +1,81 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: resultatdb-pvc
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 10Gi
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: resultatdb-deployment
+  labels:
+    app: resultatdb
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: resultatdb
+  template:
+    metadata:
+      labels:
+        app: resultatdb
+    spec:
+      containers:
+        - name: resultatdb
+          image: mysql:latest
+          ports:
+            - containerPort: 3306
+          env:
+            - name: RESULTAT_MYSQL_DATABASE
+              valueFrom:
+                configMapKeyRef:
+                  name: rayaisse-configmap
+                  key: RESULTAT_MYSQL_DATABASE
+            - name: MYSQL_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: mysql-secret
+                  key: root-password
+          volumeMounts:
+            - name: mysql-storage
+              mountPath: /var/lib/mysql
+          resources:
+            requests:
+              memory: "256Mi"
+              cpu: "250m"
+            limits:
+              memory: "512Mi"
+              cpu: "500m"
+      volumes:
+        - name: mysql-storage
+          persistentVolumeClaim:
+            claimName: resultatdb-pvc
+
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: mysql-secret
+type: Opaque
+stringData:
+  root-password: "root"
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: resultatdb
+spec:
+  selector:
+    app: resultatdb
+  type: ClusterIP
+  ports:
+    - protocol: TCP
+      port: 3306
+      targetPort: 3306

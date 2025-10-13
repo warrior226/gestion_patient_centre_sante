@@ -1,0 +1,55 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: medecin-service-deployment
+  labels:
+    app: medecin-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: medecin-service
+  template:
+    metadata:
+      labels:
+        app: medecin-service
+    spec:
+      containers:
+        - name: medecin-service
+          image: rayaisse/medecin-service:v4
+          ports:
+            - containerPort: 4002
+          env:
+            - name: SPRING_APPLICATION_NAME
+              valueFrom:
+                configMapKeyRef:
+                  name: rayaisse-configmap
+                  key: MEDECIN_SERVICE_APPLICATION_NAME
+            - name: SPRING_PROFILES_ACTIVE
+              valueFrom:
+                configMapKeyRef:
+                  name: rayaisse-configmap
+                  key: SPRING_PROFILES_ACTIVE
+            - name: SPRING_CONFIG_IMPORT
+              valueFrom:
+                configMapKeyRef:
+                  name: rayaisse-configmap
+                  key: SPRING_CONFIG_IMPORT
+            - name: EUREKA_CLIENT_SERVICEURL_DEFAULTZONE
+              valueFrom:
+                configMapKeyRef:
+                  name: rayaisse-configmap
+                  key: EUREKA_CLIENT_SERVICEURL_DEFAULTZONE
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: medecin-service
+spec:
+  selector:
+    app: medecin-service
+  type: LoadBalancer
+  ports:
+    - protocol: TCP
+      port: 4002
+      targetPort: 4002

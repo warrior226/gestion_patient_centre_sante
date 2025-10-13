@@ -1,0 +1,81 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: disponibilitedb-pvc
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 10Gi
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: disponibilitedb-deployment
+  labels:
+    app: disponibilitedb
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: disponibilitedb
+  template:
+    metadata:
+      labels:
+        app: disponibilitedb
+    spec:
+      containers:
+        - name: disponibilitedb
+          image: mysql:latest
+          ports:
+            - containerPort: 3306
+          env:
+            - name: DISPONIBILITE_MYSQL_DATABASE
+              valueFrom:
+                configMapKeyRef:
+                  name: rayaisse-configmap
+                  key: DISPONIBILITE_MYSQL_DATABASE
+            - name: MYSQL_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: mysql-secret
+                  key: root-password
+          volumeMounts:
+            - name: mysql-storage
+              mountPath: /var/lib/mysql
+          resources:
+            requests:
+              memory: "256Mi"
+              cpu: "250m"
+            limits:
+              memory: "512Mi"
+              cpu: "500m"
+      volumes:
+        - name: mysql-storage
+          persistentVolumeClaim:
+            claimName: disponibilitedb-pvc
+
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: mysql-secret
+type: Opaque
+stringData:
+  root-password: "root"
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: disponibilitedb
+spec:
+  selector:
+    app: disponibilitedb
+  type: ClusterIP
+  ports:
+    - protocol: TCP
+      port: 3306
+      targetPort: 3306
