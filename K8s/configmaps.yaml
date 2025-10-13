@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: rayaisse-configmap
+data:
+  SPRING_PROFILES_ACTIVE: prod
+  SPRING_CONFIG_IMPORT: "configserver:http://configserver:8071/"
+  EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: "http://eurekaserver:8070/eureka/"
+  CONFIGSERVER_APPLICATION_NAME: "configserver"
+  EUREKA_APPLICATION_NAME: "eurekaserver"
+  GATEWAYSERVER_APPLICATION_NAME: "gatewayserver"
+  PATIENT_SERVICE_APPLICATION_NAME: "patient-service"
+  MEDECIN_SERVICE_APPLICATION_NAME: "medecin-service"
+  PATIENT_MEDECIN_SERVICE_APPLICATION_NAME: "patient-medecin-service"
+  RDV_SERVICE_APPLICATION_NAME: "rdv-service"
+  CONSULTATION_SERVICE_APPLICATION_NAME: "consultation-service"
+  DISPONIBILITE_SERVICE_APPLICATION_NAME: "disponibilite-service"
+  CONSTANTE_SERVICE_APPLICATION_NAME: "constante-service"
+  KC_BOOTSTRAP_ADMIN_USERNAME: "admin"
+  KC_BOOTSTRAP_ADMIN_PASSWORD: "admin"
+  SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_JWK-SET-URI: "http://keycloak:7080/realms/master/protocol/openid-connect/certs"
