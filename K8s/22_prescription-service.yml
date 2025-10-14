@@ -1,30 +1,30 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: medecin-service-deployment
+  name: prescription-service-deployment
   labels:
-    app: medecin-service
+    app: prescription-service
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: medecin-service
+      app: prescription-service
   template:
     metadata:
       labels:
-        app: medecin-service
+        app: prescription-service
     spec:
       containers:
-        - name: medecin-service
-          image: rayaisse/medecin-service:v4
+        - name: prescription-service
+          image: rayaisse/prescription-service:v4
           ports:
-            - containerPort: 4001
+            - containerPort: 4005
           env:
             - name: SPRING_APPLICATION_NAME
               valueFrom:
                 configMapKeyRef:
                   name: rayaisse-configmap
-                  key: MEDECIN_SERVICE_APPLICATION_NAME
+                  key: PRESCRIPTION_SERVICE_APPLICATION_NAME
             - name: SPRING_PROFILES_ACTIVE
               valueFrom:
                 configMapKeyRef:
@@ -41,7 +41,7 @@ spec:
                   name: rayaisse-configmap
                   key: EUREKA_CLIENT_SERVICEURL_DEFAULTZONE
             - name: SPRING_DATASOURCE_URL
-              value: "jdbc:mysql://medecindb:3306/medecindb"
+              value: "jdbc:mysql://prescriptiondb:3306/prescriptiondb"
             - name: SPRING_DATASOURCE_USERNAME
               value: "root"
             - name: SPRING_DATASOURCE_PASSWORD
@@ -61,12 +61,12 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: medecin-service
+  name: prescription-service
 spec:
   selector:
-    app: medecin-service
+    app: prescription-service
   type: LoadBalancer
   ports:
     - protocol: TCP
-      port: 4001
-      targetPort: 4001
+      port: 4005
+      targetPort: 4005
