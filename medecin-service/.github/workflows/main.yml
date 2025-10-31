@@ -1,0 +1,29 @@
+name: Builder et deployer le microservice:"medecin-service"
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-deploy:
+    name: Builder et deployer le microservice:"medecin-service"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v5
+
+      - name: Setup Java
+        uses: actions/setup-java@v5
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+
+
+      - name: Unit test
+        run: mvn -B test --file pom.xml
+
+      - name: Built l'application
+        run: |
+          mvn clean
+          mvn -B package --file pom.xml
