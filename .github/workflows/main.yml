@@ -36,9 +36,12 @@ jobs:
       - name: Unit test
         run: mvn -B test --file ./medecin-service/pom.xml
         env:
-          SPRING_DATASOURCE_URL: "jdbc:mysql://mysql:3306/medecindb"
+          SPRING_DATASOURCE_URL: "jdbc:mysql://localhost:3306/medecindb"
           SPRING_DATASOURCE_USERNAME: root
           SPRING_DATASOURCE_PASSWORD: root
+          SPRING_JPA_HIBERNATE_DDL_AUTO: create-drop
+          SPRING_CLOUD_CONFIG_ENABLED: false
+          SPRING_CLOUD_DISCOVERY_ENABLED: false
 
       - name: Built l'application
         run: |
