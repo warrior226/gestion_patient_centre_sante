@@ -9,6 +9,18 @@ jobs:
   build-deploy:
     name: Builder et deployer le microservice:"medecin-service"
     runs-on: ubuntu-latest
+
+    services:
+      mysql:
+        image: mysql:8.0
+        ports:
+          - 3306
+        env:
+          MYSQL_ROOT_PASSWORD: root
+          MYSQL_DATABASE: medecindb
+          MYSQL_USER: root
+          MYSQL_PASSWORD: root
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v5
@@ -19,9 +31,20 @@ jobs:
           java-version: '21'
           distribution: 'temurin'
 
+      - name : Attendre que MySql soit pret
+        run: |
+          until mysqladmin ping -h"127.0.0.1" -P"3306" -u"root" -p"root" --silent; do
+            echo "Waiting for MySQL..."
+            sleep 2
+          done
+
 
       - name: Unit test
         run: mvn -B test --file ./medecin-service/pom.xml
+        env:
+          SPRING_DATASOURCE_URL: "jdbc:mysql://mysql:3306/medecindb"
+          SPRING_DATASOURCE_USERNAME: root
+          SPRING_DATASOURCE_PASSWORD: root
 
       - name: Built l'application
         run: |
