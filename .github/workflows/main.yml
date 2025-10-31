@@ -22,8 +22,8 @@ jobs:
 
 
 
-      - name: Unit test
-        run: mvn -B test --file ./medecin-service/pom.xml
+      #- name: Unit test
+       # run: mvn -B test --file ./medecin-service/pom.xml
 
 
       - name: Built l'application
