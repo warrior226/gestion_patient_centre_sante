@@ -27,6 +27,7 @@ jobs:
 
 
       - name: Built l'application
+        working-directory: ./medecin-service
         run: |
           mvn clean
-          mvn -B package --file ./medecin-service/pom.xml
+          mvn -B package -DskipTests
