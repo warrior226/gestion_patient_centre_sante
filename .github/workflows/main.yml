@@ -10,17 +10,6 @@ jobs:
     name: Builder et deployer le microservice:"medecin-service"
     runs-on: ubuntu-latest
 
-    services:
-      mysql:
-        image: mysql:8.0
-        ports:
-          - 3306
-        env:
-          MYSQL_ROOT_PASSWORD: root
-          MYSQL_DATABASE: medecindb
-          MYSQL_USER: root
-          MYSQL_PASSWORD: root
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v5
@@ -35,13 +24,7 @@ jobs:
 
       - name: Unit test
         run: mvn -B test --file ./medecin-service/pom.xml
-        env:
-          SPRING_DATASOURCE_URL: "jdbc:mysql://localhost:3306/medecindb"
-          SPRING_DATASOURCE_USERNAME: root
-          SPRING_DATASOURCE_PASSWORD: root
-          SPRING_JPA_HIBERNATE_DDL_AUTO: create-drop
-          SPRING_CLOUD_CONFIG_ENABLED: false
-          SPRING_CLOUD_DISCOVERY_ENABLED: false
+
 
       - name: Built l'application
         run: |

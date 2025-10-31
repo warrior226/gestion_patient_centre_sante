@@ -28,7 +28,6 @@
         <module name="disponibilite-service" />
         <module name="resultat-service" />
         <module name="prescription-service" />
-        <module name="medecin-service" />
         <module name="examen-service" />
         <module name="constante-service" />
         <module name="rdv-service" />
@@ -36,6 +35,16 @@
         <module name="patient-medecin-service" />
         <module name="patient-service" />
         <module name="patient_medecin-service" />
+      </profile>
+      <profile name="Annotation profile for medecin-service" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <processorPath useClasspath="false">
+          <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.38/lombok-1.18.38.jar" />
+          <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.38/lombok-1.18.38.jar" />
+        </processorPath>
+        <module name="medecin-service" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
