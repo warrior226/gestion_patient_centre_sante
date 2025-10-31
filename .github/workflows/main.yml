@@ -21,9 +21,9 @@ jobs:
 
 
       - name: Unit test
-        run: mvn -B test --file pom.xml
+        run: mvn -B test --file ./medecin-service/pom.xml
 
       - name: Built l'application
         run: |
           mvn clean
-          mvn -B package --file pom.xml
+          mvn -B package --file ./medecin-service/pom.xml
