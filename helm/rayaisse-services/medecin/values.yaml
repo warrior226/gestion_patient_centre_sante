@@ -1,0 +1,28 @@
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+deploymentName: medecin-deployment
+serviceName: medecin-service
+appLabel: medecin-service
+appName: medecin-service
+
+replicaCount: 1
+
+image:
+  repository: rayaisse/medecin-service
+  tag: v4
+
+containerPort: 4001
+
+service:
+  type: ClusterIP
+  port: 4001
+  targetPort: 4001
+
+appname_enabled: true
+profile_enabled: true
+config_enabled: true
+eureka_enabled: true
+resouceserver_enabled: false
+otel_enabled: true
+kafka_enabled: true
