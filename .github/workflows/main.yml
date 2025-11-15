@@ -25,11 +25,11 @@ jobs:
       - name: Unit test
         run: |
           echo "=================================="
-          echo "🧪 Running Unit Tests"
+          echo "Running Unit Tests"
           echo "=================================="
           echo "Test Framework: JUnit 5"
           echo "Coverage Tool: Maven Surefire"
-          echo "Status: All tests passed ✅"
+          echo "Status: All tests passed "
           echo "=================================="
 
 
